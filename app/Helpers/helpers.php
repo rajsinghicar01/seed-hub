@@ -58,3 +58,10 @@ if(! function_exists('get_user_role_by_id')) {
         }
     }
 }
+
+if(! function_exists('get_user_by_id')) {
+    function get_user_by_id($id){
+        $user = User::find($id);
+        return $user;
+    }
+}

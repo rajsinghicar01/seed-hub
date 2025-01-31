@@ -19,6 +19,9 @@ use App\Http\Controllers\Admin\CentreController;
 use App\Http\Controllers\Admin\SeedTargetController;
 use App\Http\Controllers\Admin\SeedProductionStatusController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\SeedAvailabilityController;
+
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
@@ -27,20 +30,20 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about-us', function(){
     return view('pages.about');
- })->name('about');
+})->name('about');
 
- Route::get('/contact-us', function(){
+Route::get('/contact-us', function(){
     return view('pages.contact');
- })->name('contact');
+})->name('contact');
 
- Route::get('/seed-availability', function(){
-    return view('pages.seed-availability');
- })->name('seed-availability');
+Route::get('/seed-availability', [SeedAvailabilityController::class, 'index'])->name('seed-availability');
   
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
+    Route::get('profile', [UserController::class,'profile'])->name('profile');
+    Route::put('update-profile/{id}', [UserController::class,'update_profile'])->name('update_profile');
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('crops', CropController::class);
@@ -60,12 +63,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('/get-seed-production-statuses', [SeedProductionStatusController::class, 'get_seed_production_statuses'])->name('get_seed_production_statuses');
     Route::post('status_update', [SeedProductionStatusController::class, 'status_update'])->name('status_update');
     Route::resource('seed-production-statuses', SeedProductionStatusController::class);
+    Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity.logs');
 
     Route::get('add-more', [ProductController::class, 'index']);
     Route::post('add-more', [ProductController::class, 'store'])->name('add-more.store');
     
-    Route::get('/profile', function (Request $request) {
-        return 'profile will be here...';
-    })->name('profile');
+    // Route::get('/profile', function (Request $request) {
+    //     return 'profile will be here...';
+    // })->name('profile');
 
 });

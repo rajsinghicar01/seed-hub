@@ -211,4 +211,43 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+
+    public function profile(){
+        $user = Auth::user();
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
+        $designations = Designation::all();
+    
+        return view('admin.users.profile',compact('user','roles','userRole','designations'));
+    }
+
+    public function update_profile(Request $request, string $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'phone' => 'numeric|digits:10||unique:users,phone,'.$id,
+            'pincode' => 'numeric|digits:6',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $input = $request->all();
+    
+        $user = User::find($id);
+        $user->update($input);
+
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('profiles', 'public');
+            $path = $request->file('avatar')->store('images', 'public');
+            $pathArray = explode('/',$path);
+            $imgPath = $pathArray[1];
+
+            $user->avatar = $imgPath;
+            $user->save();
+        }
+    
+        return redirect()->route('profile')->with('success','Profile updated successfully');
+    }
+
+
 }

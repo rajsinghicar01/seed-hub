@@ -372,7 +372,7 @@
                 @endcan
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('activity.logs') }}" class="nav-link {{ Request::segment(2) == 'activity-logs' ? 'active' : '' }}" >
                         <i class="nav-icon fas fa-history"></i>
                         <p>Activity Logs</p>
                     </a>

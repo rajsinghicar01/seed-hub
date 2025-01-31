@@ -98,16 +98,16 @@
                     @if(!empty($seed_target))
                         @foreach($seed_target->items as $key => $item)
 
-                    @php
-                        $cls = '';
-                        if(isAdmin()){
-                            $cls = 'admin';
-                        }else{
-                            if(Auth::user()->id!=$item['created_by'] ){
-                                $cls = 'user-seed-target';
+                        @php
+                            $cls = '';
+                            if(isAdmin()){
+                                $cls = 'admin';
+                            }else{
+                                if(Auth::user()->id!=$item['created_by'] ){
+                                    $cls = 'user-seed-target';
+                                }
                             }
-                        }
-                    @endphp
+                        @endphp
                     <tr>
                         <td class="{{ $cls }}">
                             <input type="hidden" name="items[{{$key}}][id]" value="{{ $item->id }}">
