@@ -28,7 +28,7 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table table-bordered table-striped data-table" style="width:100%">
+                <table class="table table-bordered table-striped data-table" id="example1" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -47,6 +47,8 @@
             </div>
   
         </div>
+
+        
     </div>
 </div>
 
@@ -80,7 +82,7 @@ $(function() {
             },
             {
                 data: 'phone',
-                name: 'phone'
+                name: 'phone',
             },
             {
                 data: 'roles',

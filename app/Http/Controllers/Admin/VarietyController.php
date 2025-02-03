@@ -33,7 +33,7 @@ class VarietyController extends Controller
         if ($request->ajax()) {
 
             if (isAdmin()) {
-                $variety = Variety::query();
+                $variety = Variety::with('user')->get();
             } else {
                 $variety = Variety::where('user_id', '=', Auth::user()->id)->get();
             }

@@ -20,7 +20,7 @@ class ActivityLogController extends Controller
     {
         if ($request->ajax()) {
 
-            $activities = Activity::query();
+            $activities = Activity::latest();
             
             return Datatables::of($activities)
                     ->addColumn('subject_id', function ($row) {
@@ -36,7 +36,7 @@ class ActivityLogController extends Controller
                         return $row->created_at->format('d M Y H:t:s A');
                     })
                     ->addIndexColumn()
-                    ->rawColumns(['subject_id','properties','created_at'])
+                    ->rawColumns(['subject_id','causer_id','properties','created_at'])
                     ->make(true);
         }
               

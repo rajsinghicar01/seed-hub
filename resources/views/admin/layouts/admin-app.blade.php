@@ -122,6 +122,7 @@
 
     <script>
     new DataTable('#example');
+
     setTimeout(function() {
         $('.alert').fadeOut('slow');
     }, 5000);

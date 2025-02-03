@@ -33,7 +33,7 @@ class ControllingAuthorityController extends Controller
     {
         if ($request->ajax()) {
 
-            $ControllingAuthority = ControllingAuthority::query();
+            $ControllingAuthority = ControllingAuthority::with('designation')->get();
             
             return Datatables::of($ControllingAuthority)
                     ->addIndexColumn()

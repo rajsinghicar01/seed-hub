@@ -40,7 +40,7 @@ class SeedTargetController extends Controller
         if ($request->ajax()) {
 
             if (isAdmin()) {
-                $SeedTargets = SeedTarget::query();
+                $SeedTargets = SeedTarget::with('centre','season','crop')->get();
             } else {
                 $SeedTargets = SeedTarget::where('centre_id', '=',  get_users_centre())->get();
             }

@@ -35,9 +35,9 @@
                             <select name="crop_name" class="form-control">
                                 <option value="">Choose any option</option>
                                 @if(!empty($zones))
-                                    @foreach($zones as $zone)
-                                    <option value="{{ $zone->id}}">{{ $zone->zone_name}}</option>
-                                    @endforeach
+                                @foreach($zones as $zone)
+                                <option value="{{ $zone->id}}">{{ $zone->zone_name}}</option>
+                                @endforeach
                                 @endif
                             </select>
                         </div>
@@ -48,9 +48,9 @@
                             <select name="state" class="form-control">
                                 <option>Choose any option</option>
                                 @if(!empty($states))
-                                    @foreach($states as $state)
-                                    <option value="{{ $state->id}}">{{ $state->state_name}}</option>
-                                    @endforeach
+                                @foreach($states as $state)
+                                <option value="{{ $state->id}}">{{ $state->state_name}}</option>
+                                @endforeach
                                 @endif
                             </select>
                         </div>
@@ -61,9 +61,9 @@
                             <select name="crop_name" class="form-control">
                                 <option>Choose any option</option>
                                 @if(!empty($centres))
-                                    @foreach($centres as $centre)
-                                    <option value="{{ $centre->id}}">{{ $centre->centre_name }}</option>
-                                    @endforeach
+                                @foreach($centres as $centre)
+                                <option value="{{ $centre->id}}">{{ $centre->centre_name }}</option>
+                                @endforeach
                                 @endif
                             </select>
                         </div>
@@ -74,9 +74,9 @@
                             <select name="crop_name" class="js-example-basic-single form-control">
                                 <option value="">Choose any option</option>
                                 @if(!empty($crops))
-                                    @foreach($crops as $crop)
-                                    <option value="{{ $crop->id}}">{{ $crop->name }}</option>
-                                    @endforeach
+                                @foreach($crops as $crop)
+                                <option value="{{ $crop->id}}">{{ $crop->name }}</option>
+                                @endforeach
                                 @endif
                             </select>
                         </div>
@@ -87,9 +87,9 @@
                             <select name="crop_name" class="form-control">
                                 <option value="">Choose any option</option>
                                 @if(!empty($varieties))
-                                    @foreach($varieties as $variety)
-                                    <option value="{{ $variety->id}}">{{ $variety->variety_name }}</option>
-                                    @endforeach
+                                @foreach($varieties as $variety)
+                                <option value="{{ $variety->id}}">{{ $variety->variety_name }}</option>
+                                @endforeach
                                 @endif
                             </select>
                         </div>
@@ -100,9 +100,9 @@
                             <select name="crop_name" class="form-control">
                                 <option value="">Choose any option</option>
                                 @if(!empty($categories))
-                                    @foreach($categories as $category)
-                                    <option value="{{ $category->id}}">{{ $category->name }}</option>
-                                    @endforeach
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id}}">{{ $category->name }}</option>
+                                @endforeach
                                 @endif
                             </select>
                         </div>
@@ -118,8 +118,8 @@
             </div>
 
             <div class="row g-0">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                <div class="">
+                    <table id="example" class="display table table-bordered table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -154,9 +154,25 @@
                             @endforeach
                             @endif
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Variety Name</th>
+                                <th>Recommended Zone / State</th>
+                                <th>Seed Category</th>
+                                <th>Seed Available (Quintals)</th>
+                                <th>Rate</th>
+                                <th>Centre Name</th>
+                                <th>Contact Address</th>
+                                <th>Centre Incharge</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 </section><!-- /Services Section -->
@@ -164,10 +180,18 @@
 
 @stop
 
-
-
-
 @section('additional_js')
+<script>
+new DataTable('#example', {
+    layout: {
+        topStart: {
+            buttons: ['csv', 'print']
+        }
+    }
+});
+
+// buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+</script>
 @endsection
 
 @section('additional_css')
@@ -182,15 +206,21 @@ form.form-inline {
 }
 
 @media only screen and (max-width: 600px) {
-    .form-group{
+    .form-group {
         margin-bottom: 10px;
     }
+
     .form-control {
         width: 100% !important;
     }
+
     form.form-inline {
         display: block !important;
     }
+}
+
+select {
+    appearance: auto !important;
 }
 </style>
 @endsection

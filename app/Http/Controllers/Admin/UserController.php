@@ -29,7 +29,7 @@ class UserController extends Controller
         
         if ($request->ajax()) {
 
-            $users = User::query();
+            $users = User::with('roles')->get();
                 
             return Datatables::of($users)
                     ->addIndexColumn()
@@ -40,13 +40,7 @@ class UserController extends Controller
                             return '<img src="'.asset('storage/profiles/avatar.png').'" class="img-circle" style="width: 30px;">';
                         } 
                     })
-                    ->addColumn('phone', function ($row) {
-                        if(!empty($row->phone)){
-                            return '+91-'.$row->phone;
-                        }else{
-                            return '--';
-                        } 
-                    })
+                    
                     ->addColumn('status', function ($row) {
                         if($row->status){
                             return '<label class="badge bg-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Active</label> ';

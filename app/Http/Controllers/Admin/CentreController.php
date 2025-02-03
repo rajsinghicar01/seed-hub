@@ -36,9 +36,9 @@ class CentreController extends Controller
         if ($request->ajax()) {
 
             if (isAdmin()) {
-                $centres = Centre::query();
+                $centres = Centre::with('zone','state','user')->get();
             } else {
-                $centres = Centre::where('user_id', '=',  Auth::user()->id)->get();
+                $centres = Centre::with('zone','state','user')->where('user_id', '=',  Auth::user()->id)->get();
             }
 
             return Datatables::of($centres)

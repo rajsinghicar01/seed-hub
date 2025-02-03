@@ -33,7 +33,7 @@ class StateController extends Controller
     {
         if ($request->ajax()) {
 
-            $state = State::query();
+            $state = State::with('zone')->get();
             
             return Datatables::of($state)
                     ->addIndexColumn()

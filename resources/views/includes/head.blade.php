@@ -25,3 +25,9 @@
 <!-- Main CSS File -->
 <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
 
+<link href="{{ asset('assets/css/dataTables.dataTables.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/buttons.dataTables.css') }}" rel="stylesheet">
+
+
+
+
