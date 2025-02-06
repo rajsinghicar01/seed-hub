@@ -37,6 +37,8 @@ Route::get('/contact-us', function(){
 })->name('contact');
 
 Route::get('/seed-availability', [SeedAvailabilityController::class, 'index'])->name('seed-availability');
+Route::post('/get_states_by_zone', [SeedAvailabilityController::class,'get_states_by_zone'])->name('get_states_by_zone_front');
+Route::post('/get_variety_by_crop', [SeedAvailabilityController::class,'get_variety_by_crop'])->name('get_variety_by_crop');
   
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

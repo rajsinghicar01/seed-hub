@@ -25,8 +25,8 @@ use Session;
 class SeedAvailabilityController extends Controller
 {
     public function index(){
-        $seed_targets = SeedTarget::get();
-        // return $seed_targets->centre;
+        $seed_targets = SeedTarget::with('centre','season','crop','items')->get();
+        // return $seed_targets;
         $zones = Zone::get();
         $states = State::get();
         $centres = Centre::get();
@@ -34,5 +34,17 @@ class SeedAvailabilityController extends Controller
         $varieties = Variety::get();
         $categories = Category::get();
         return view('pages.seed-availability',compact('seed_targets','zones','states','centres','crops','varieties','categories'));
+    }
+
+    public function get_states_by_zone(Request $request)
+    {
+        $data['states'] = State::where("zone_id", $request->zone_id)->get(["state_name", "id"]);
+        return response()->json($data);
+    }
+
+    public function get_variety_by_crop(Request $request)
+    {
+        $data['varieties'] = Variety::where("crop_id", $request->crop_id)->get(["variety_name", "id"]);
+        return response()->json($data);
     }
 }

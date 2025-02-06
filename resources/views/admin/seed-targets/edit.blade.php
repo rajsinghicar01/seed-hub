@@ -121,6 +121,9 @@
                                 @endif
                             </select>
                             @error("items.{$key}.variety_id")<p class="text-danger">{{ $message }}</p>@enderror
+
+                            <input type="hidden" name="items[{{$key}}][seed_target_id]" value="{{ $seed_target->id }}">
+                            @error("items.{$key}.seed_target_id")<p class="text-danger">{{ $message }}</p>@enderror
                         </td>
                         <td class="{{ $cls }}">
                             <strong>Seed Category:<span class="text-danger">*</span></strong>
@@ -135,7 +138,7 @@
                             @error("items.{$key}.category_id")<p class="text-danger">{{ $message }}</p>@enderror
                         </td>
                         <td class="{{ $cls }}">
-                            <strong>Total Seed Quantity (Quintals):<span class="text-danger">*</span></strong>
+                            <strong>Total Seed Quantity (Qtl):<span class="text-danger">*</span></strong>
                             <input type="text" name="items[{{$key}}][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity" value="{{ $item['total_seed_quantity'] ?? '' }}">
                             @error("items.{$key}.total_seed_quantity")<p class="text-danger">{{ $message }}</p>@enderror
                             <input type="hidden" name="items[{{$key}}][created_by]" value="{{ $item['created_by'] ?? '' }}">
@@ -152,9 +155,9 @@
                                 @endif
 
                                 @if(empty($item->status))
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal-create" title="Create Seed Production Status" onclick="get_item_info({{ $item->id }})"><i class="fa fa-envelope"></i></button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal-create" title="Create Seed Production Status"  onclick="get_item_info({{ $item->id }},{{ $item['total_seed_quantity'] ?? '' }})"><i class="fa fa-envelope"></i></button>
                                 @else
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal-edit" title="Update Seed Production Status" onclick="display_status({{ $item->status->id }})"><i class="fa fa-edit"></i></button> 
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal-edit" title="Update Seed Production Status" onclick="display_status({{ $item->status->id }},{{ $item['total_seed_quantity'] ?? '' }})"><i class="fa fa-edit"></i></button> 
                                 @endif
 
                             @endif
@@ -171,6 +174,8 @@
                             <select name="items[0][variety_id]" id="variety_id_0" class="form-control variety_id">
                                 <option value="">Choose Crop Name First</option>
                             </select>
+
+                            <input type="text" name="items[0][seed_target_id]" value="{{ $seed_target->id }}">
                         </td>
                         <td>
                             <strong>Seed Category:<span class="text-danger">*</span></strong>
@@ -184,7 +189,7 @@
                             </select>
                         </td>
                         <td>
-                            <strong>Total Seed Quantity (Quintals):<span class="text-danger">*</span></strong>
+                            <strong>Total Seed Quantity (Qtl):<span class="text-danger">*</span></strong>
                             <input type="text" name="items[0][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity">
                             <input type="hidden" name="items[0][created_by]" value="{{ Auth::user()->id }}">
                         </td>
@@ -205,48 +210,57 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="card-title">Seed Production Status</h3>
+                    <h3 class="card-title">Create Seed Production Status</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="responseMessage"></div>
+                    <div id="responseMessage" class="text-danger"></div>
                     <form id="insertForm">
                         @csrf
                         <div class="row">
+                            
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Quantity Produced: (Quintals)<span class="text-danger">*</span></strong>
+                                    <strong>Quantity Produced: (Qtl)<span class="text-danger">*</span></strong>
                                     <input type="text" name="quantity_produced" id="quantity_produced" class="form-control">
                                     <p id="quantity_produced_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Seed Available for Sale: (Quintals)<span class="text-danger">*</span></strong>
+                                    <strong>Seed Available for Sale: (Qtl)<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_available_for_sale" id="seed_available_for_sale" class="form-control">
                                     <p id="seed_available_for_sale_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Seed Price:<span class="text-danger">*</span></strong>
+                                    <strong>Seed Price (per Qtl):<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_price" id="seed_price" class="form-control">
                                     <p id="seed_price_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Reserved Seed: (Quintals)<span class="text-danger">*</span></strong>
-                                    <input type="text" name="reserved_seed" id="reserved_seed" class="form-control">
+                                    <strong>Reason for Shortfall: <small>(If Target not achieved)</small></strong>
+                                    <textarea name="reason_for_shortfall" id="reason_for_shortfall" class="form-control"></textarea>
+                                    <p id="reason_for_shortfall_error" class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Reserved Seed: (Qtl)<span class="text-danger">*</span></strong>
+                                    <input type="text" name="reserved_seed" id="reserved_seed" class="form-control" readonly="true">
                                     <input type="hidden" name="seed_target_item_id" id="seed_target_item_id" class="form-control">
+                                    <input type="hidden" name="seed_target" id="seed_target" class="form-control">
                                     <p id="reserved_seed_error" class="text-danger"></p>
                                     <p id="seed_target_item_id_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <button type="submit" class="btn btn-primary btn-flat">Submit</button>
+                                <button type="submit" id="createButton" class="btn btn-primary btn-flat">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -255,7 +269,7 @@
         </div>
     </div>
 
-    <!-- Create seed production status -->
+    <!-- Update seed production status -->
     <div class="modal fade" id="modal-edit" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -266,43 +280,66 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="responseMessageEdit"></div>
+                    <div id="responseMessageEdit" class="text-danger"></div>
                     <form id="editForm">
                         @csrf
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Quantity Produced: (Quintals)<span class="text-danger">*</span></strong>
+                                    <strong>Quantity Produced: (Qtl)<span class="text-danger">*</span></strong>
                                     <input type="text" name="quantity_produced_edit" id="quantity_produced_edit" class="form-control">
                                     <p id="quantity_produced_edit_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Seed Available for Sale: (Quintals)<span class="text-danger">*</span></strong>
+                                    <strong>Seed Available for Sale: (Qtl)<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_available_for_sale_edit" id="seed_available_for_sale_edit" class="form-control">
+                                    <input type="hidden" name="seed_available_for_sale_old_edit" id="seed_available_for_sale_old_edit" class="form-control">
                                     <p id="seed_available_for_sale_edit_error" class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Seed Sold: (Qtl)<span class="text-danger">*</span></strong>
+                                    <input type="text" name="seed_sold_edit" id="seed_sold_edit" class="form-control">
+                                    <p id="seed_sold_edit_error" class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <strong>Seed Sold Date:<span class="text-danger">*</span></strong>
+                                    <input type="date" name="seed_sold_date_edit" id="seed_sold_date_edit" class="form-control">
+                                    <p id="seed_sold_date_edit_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Seed Price:<span class="text-danger">*</span></strong>
+                                    <strong>Reason for Shortfall: <small>(If Target not achieved)</small></strong>
+                                    <textarea name="reason_for_shortfall_edit" id="reason_for_shortfall_edit" class="form-control"></textarea>
+                                    <p id="reason_for_shortfall_edit_error" class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Seed Price (per Qtl):<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_price_edit" id="seed_price_edit" class="form-control">
                                     <p id="seed_price_edit_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Reserved Seed: (Quintals)<span class="text-danger">*</span></strong>
-                                    <input type="text" name="reserved_seed_edit" id="reserved_seed_edit" class="form-control">
+                                    <strong>Reserved Seed: (Qtl)<span class="text-danger">*</span></strong>
+                                    <input type="text" name="reserved_seed_edit" id="reserved_seed_edit" class="form-control" readonly="true">
                                     <input type="hidden" name="seed_target_item_id_edit" id="seed_target_item_id_edit" class="form-control">
                                     <input type="hidden" name="seed_target_item_status_id_edit" id="seed_target_item_status_id_edit" class="form-control">
+                                    <input type="hidden" name="seed_target_edit" id="seed_target_edit" class="form-control">
                                     <p id="reserved_seed_edit_error" class="text-danger"></p>
                                     <p id="seed_target_item_id_edit_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <button type="submit" class="btn btn-primary btn-flat">Submit</button>
+                                <button type="submit" id="editButton" class="btn btn-primary btn-flat">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -311,7 +348,7 @@
         </div>
     </div>
 
-        <!-- Create seed production status -->
+    <!-- Display seed production status -->
     <div class="modal fade" id="modal-view" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -327,19 +364,19 @@
                             <tbody>
                                 <tr>
                                     <th width="40%">Quantity Produced</th>
-                                    <td width="60%"><span id="view_quantity_produced"></span> (Quintals)</td>
+                                    <td width="60%"><span id="view_quantity_produced"></span> (Qtl)</td>
                                 </tr>
                                 <tr>
                                     <th>Seed vailable for sale</th>
-                                    <td><span id="view_seed_available_for_sale"></span> (Quintals)</td>
+                                    <td><span id="view_seed_available_for_sale"></span> (Qtl)</td>
                                 </tr>
                                 <tr>
-                                    <th>Seed price</th>
+                                    <th>Seed Price (per Qtl)</th>
                                     <td><span id="view_seed_price"></span></td>
                                 </tr>
                                 <tr>
                                     <th>Reserved seed</th>
-                                    <td><span id="view_reserved_seed"></span> (Quintals)</td>
+                                    <td><span id="view_reserved_seed"></span> (Qtl)</td>
                                 </tr>
                         </tbody>
                     </table>
@@ -356,8 +393,9 @@
 @section('additional_js')
 <script>
 
-function display_status(status_id){
+function display_status(status_id,display_status){
     var status_id = status_id;
+    var display_status = display_status;
     $.ajax({
         url: "{{ route('get_seed_production_statuses') }}",
         type: "POST",
@@ -369,8 +407,12 @@ function display_status(status_id){
         success: function(result) {
             $('#quantity_produced_edit').val(result.data[0].quantity_produced);
             $('#seed_available_for_sale_edit').val(result.data[0].seed_available_for_sale);
+            $('#seed_available_for_sale_old_edit').val(result.data[0].seed_available_for_sale);
             $('#seed_price_edit').val(result.data[0].seed_price);
             $('#reserved_seed_edit').val(result.data[0].reserved_seed);
+            $('#reason_for_shortfall_edit').val(result.data[0].reason_for_shortfall);
+            $('#seed_sold_edit').val(result.data[0].seed_sold);
+            $('#seed_sold_date_edit').val(result.data[0].seed_sold_date);
             $('#seed_target_item_id_edit').val(result.data[0].seed_target_item_id);
             $('#seed_target_item_status_id_edit').val(result.data[0].id);
         }
@@ -416,6 +458,9 @@ $(document).ready(function() {
             success: function(response) {
                 $('#responseMessageEdit').html('<p style="color: green;">' + response.message +'</p>');
                 // $('#editForm')[0].reset();
+                setTimeout(function(){
+                    window.location.reload();
+                }, 3000);
             },
             error: function(xhr) {
                 if (xhr.status === 400) {
@@ -441,10 +486,11 @@ $(document).ready(function() {
     });
 });
 
-function get_item_info(item_id) {
+function get_item_info(item_id,seed_target) {
     var item_id = item_id;
+    var seed_target = seed_target;
     $('#seed_target_item_id').val(item_id);
-
+    $('#seed_target').val(seed_target);
     $('#quantity_produced_error').text('');
     $('#seed_available_for_sale_error').text('');
     $('#seed_price_error').text('');
@@ -454,11 +500,52 @@ function get_item_info(item_id) {
     $('#insertForm')[0].reset();
 }
 
-$("#seed_available_for_sale").keyup(function() {
-    var quantity_produced = $('#quantity_produced').val();
-    var seed_available_for_sale = $('#seed_available_for_sale').val();
-    var reserved_seed = quantity_produced - seed_available_for_sale;
-    $('#reserved_seed').val(reserved_seed);
+$("#seed_available_for_sale, #quantity_produced").keyup(function() {
+    var quantity_produced = parseInt($('#quantity_produced').val());
+    var seed_available_for_sale = parseInt($('#seed_available_for_sale').val());
+    if(quantity_produced >= seed_available_for_sale){
+        var reserved_seed = parseInt(quantity_produced - seed_available_for_sale);
+        $('#reserved_seed').val(reserved_seed);
+        $('#responseMessage').text('');
+        $('#createButton').prop('disabled', false);
+    }else{
+        $('#responseMessage').text('Seed available for sale is less than or equal to quantity produced.');
+        $('#seed_available_for_sale').val('');
+        $('#reserved_seed').val(0);
+        $('#createButton').prop('disabled', true);
+    }
+});
+
+$("#seed_available_for_sale_edit, #quantity_produced_edit").keyup(function() {
+    var quantity_produced = parseInt($('#quantity_produced_edit').val());
+    var seed_available_for_sale = parseInt($('#seed_available_for_sale_edit').val());
+    if(quantity_produced >= seed_available_for_sale){
+        var reserved_seed = parseInt(quantity_produced - seed_available_for_sale);
+        $('#reserved_seed_edit').val(reserved_seed);
+        $('#responseMessageEdit').text('');
+        $('#editButton').prop('disabled', false);
+    }else{
+        $('#responseMessageEdit').text('Seed available for sale is less than or equal to quantity produced.');
+        $('#seed_available_for_sale_edit').val('');
+        $('#reserved_seed_edit').val(0);
+        $('#editButton').prop('disabled', true);
+    }
+});
+
+$("#seed_sold_edit").keyup(function() {
+    var seed_available_for_sale_edit = parseInt($('#seed_available_for_sale_old_edit').val());
+    var seed_sold_edit = parseInt($('#seed_sold_edit').val());
+    if(seed_available_for_sale_edit >= seed_sold_edit){
+        var seed_available_for_sale = parseInt(seed_available_for_sale_edit - seed_sold_edit);
+        $('#seed_available_for_sale_edit').val(seed_available_for_sale);
+        $('#responseMessageEdit').text('');
+        $('#editButton').prop('disabled', false);
+    }else{
+        $('#responseMessageEdit').text('You can not sale more than available seed.');
+        $('#seed_sold_edit').val();
+        $('#editButton').prop('disabled', true);
+    }
+    
 });
 
 $(document).ready(function() {
@@ -469,6 +556,7 @@ $(document).ready(function() {
         $('#seed_price_error').text('');
         $('#reserved_seed_error').text('');
         $('#seed_target_item_id_error').text('');
+        $('#reason_for_shortfall_error').text('');
         $('#responseMessage').html('');
         
         $.ajax({
@@ -478,6 +566,9 @@ $(document).ready(function() {
             success: function(response) {
                 $('#responseMessage').html('<p style="color: green;">' + response.message +'</p>');
                 $('#insertForm')[0].reset();
+                setTimeout(function(){
+                    window.location.reload();
+                }, 3000);
             },
             error: function(xhr) {
                 if (xhr.status === 400) {
@@ -487,6 +578,9 @@ $(document).ready(function() {
                     }
                     if (errors.seed_available_for_sale) {
                         $('#seed_available_for_sale_error').text(errors.seed_available_for_sale);
+                    }
+                    if (errors.reason_for_shortfall){
+                        $('#reason_for_shortfall_error').text(errors.reason_for_shortfall);
                     }
                     if (errors.seed_price) {
                         $('#seed_price_error').text(errors.seed_price);
@@ -549,7 +643,7 @@ $(document).ready(function() {
         e.preventDefault();
         i++;
         get_selected_varieties_by_crop('variety_id_' + i);
-        $(".table-add-more tbody").append('<tr> <td><input type="hidden" name="items['+i+'][id]" value=""> <strong>Variety Name:<span class="text-danger">*</span></strong> <select name="items['+i +'][variety_id]" id="variety_id_'+i+'" class="form-control variety_id"> <option value="">Choose Crop Name First</option> </select> </td> <td> <strong>Seed Category:<span class="text-danger">*</span></strong> <select name="items['+i+'][category_id]" class="form-control"> <option value="">Choose Seed Category</option> @if(!empty($categories)) @foreach($categories as $category) <option value="{{ $category->id }}">{{ $category->name }}</option> @endforeach @endif </select> </td> <td> <strong>Total Seed Quantity (Quintals):<span class="text-danger">*</span></strong> <input type="text" name="items['+i+'][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity"> <input type="hidden" name="items['+i+'][created_by]" value="{{ Auth::user()->id }}"></td> <td><button class="btn btn-outline-danger btn-sm btn-add-more-rm"><i class="fa fa-trash"></i></button></td> </tr>');
+        $(".table-add-more tbody").append('<tr> <td><input type="hidden" name="items['+i+'][id]" value=""> <strong>Variety Name:<span class="text-danger">*</span></strong> <select name="items['+i +'][variety_id]" id="variety_id_'+i+'" class="form-control variety_id"> <option value="">Choose Crop Name First</option> </select> <input type="hidden" name="items['+i +'][seed_target_id]" value="{{ $seed_target->id }}"></td> <td> <strong>Seed Category:<span class="text-danger">*</span></strong> <select name="items['+i+'][category_id]" class="form-control"> <option value="">Choose Seed Category</option> @if(!empty($categories)) @foreach($categories as $category) <option value="{{ $category->id }}">{{ $category->name }}</option> @endforeach @endif </select> </td> <td> <strong>Total Seed Quantity (Qtl):<span class="text-danger">*</span></strong> <input type="text" name="items['+i+'][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity"> <input type="hidden" name="items['+i+'][created_by]" value="{{ Auth::user()->id }}"></td> <td><button class="btn btn-outline-danger btn-sm btn-add-more-rm"><i class="fa fa-trash"></i></button></td> </tr>');
     });
     $(document).on('click', '.btn-add-more-rm', function() {
         $(this).parents("tr").remove();

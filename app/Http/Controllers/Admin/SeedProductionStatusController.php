@@ -56,9 +56,23 @@ class SeedProductionStatusController extends Controller
             'quantity_produced' => 'required',
             'seed_available_for_sale' => 'required', 
             'seed_price' => 'required', 
+            'seed_target' => 'required',
             'reserved_seed' => 'required', 
-            'seed_target_item_id' => 'numeric|unique:seed_production_statuses,seed_target_item_id'
+            'seed_target_item_id' => 'required|numeric|unique:seed_production_statuses,seed_target_item_id'
         );
+
+        if ($request->input('quantity_produced') < $request->input('seed_target')) {
+            $rule = array(
+                'reason_for_shortfall' => 'required|max:155',
+            );
+        }else{
+            $rule = array(
+                'reason_for_shortfall' => 'max:155',
+            );
+        }
+
+        $rules = array_merge($rules,$rule);
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){
@@ -73,6 +87,7 @@ class SeedProductionStatusController extends Controller
             'quantity_produced' => $request->quantity_produced,
             'seed_available_for_sale' => $request->seed_available_for_sale,
             'seed_price' => $request->seed_price,
+            'reason_for_shortfall' => $request->reason_for_shortfall,
             'reserved_seed' => $request->reserved_seed,
             'seed_target_item_id' => $request->seed_target_item_id
         ]);
@@ -117,9 +132,24 @@ class SeedProductionStatusController extends Controller
             'seed_available_for_sale_edit' => 'required', 
             'seed_price_edit' => 'required', 
             'reserved_seed_edit' => 'required', 
+            'seed_sold_edit' => 'required',
+            'seed_sold_date_edit' => 'required',
             'seed_target_item_id_edit' => 'numeric|required',
             'seed_target_item_status_id_edit' => 'required'
         );
+
+        if ($request->input('quantity_produced_edit') < $request->input('seed_target_edit')) {
+            $rule = array(
+                'reason_for_shortfall_edit' => 'required|max:155',
+            );
+        }else{
+            $rule = array(
+                'reason_for_shortfall_edit' => 'max:155',
+            );
+        }
+
+        $rules = array_merge($rules,$rule);
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){
@@ -135,6 +165,9 @@ class SeedProductionStatusController extends Controller
         $status->seed_available_for_sale = $request->seed_available_for_sale_edit;
         $status->seed_price = $request->seed_price_edit;
         $status->reserved_seed = $request->reserved_seed_edit;
+        $status->reason_for_shortfall = $request->reason_for_shortfall_edit;
+        $status->seed_sold = $request->seed_sold_edit;
+        $status->seed_sold_date = $request->seed_sold_date_edit;
         $status->update();
 
         return response()->json([

@@ -141,6 +141,33 @@
                 </li>
                 @endcan
 
+                @canany(['variety-list', 'variety-create', 'variety-edit', 'variety-delete'])
+                <li class="nav-item {{ Request::segment(2) == 'varieties' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'varieties' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-briefcase"></i>
+                        <p>Varieties<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('varieties.index')}}"
+                                class="nav-link {{ Route::current()->getName() == 'varieties.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Varieties</p>
+                            </a>
+                        </li>
+                        @can(['variety-create'])
+                        <li class="nav-item">
+                            <a href="{{route('varieties.create')}}"
+                                class="nav-link {{ Route::current()->getName() == 'varieties.create' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add New Variety</p>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcan
+
                 @canany(['category-list', 'category-create', 'category-edit', 'category-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'categories' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'categories' ? 'active' : '' }}">
@@ -237,33 +264,6 @@
                                 <p>Add New Zone</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-                @endcan
-
-                @canany(['variety-list', 'variety-create', 'variety-edit', 'variety-delete'])
-                <li class="nav-item {{ Request::segment(2) == 'varieties' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::segment(2) == 'varieties' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>Varieties<i class="fas fa-angle-left right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('varieties.index')}}"
-                                class="nav-link {{ Route::current()->getName() == 'varieties.index' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All Varieties</p>
-                            </a>
-                        </li>
-                        @can(['variety-create'])
-                        <li class="nav-item">
-                            <a href="{{route('varieties.create')}}"
-                                class="nav-link {{ Route::current()->getName() == 'varieties.create' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add New Variety</p>
-                            </a>
-                        </li>
-                        @endcan
                     </ul>
                 </li>
                 @endcan

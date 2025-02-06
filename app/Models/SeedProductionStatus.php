@@ -13,7 +13,10 @@ class SeedProductionStatus extends Model
         'seed_available_for_sale',
         'seed_price',
         'reserved_seed',
-        'seed_target_item_id'
+        'seed_target_item_id',
+        'reason_for_shortfall',
+        'seed_sold',
+        'seed_sold_date'
     ];
 
     public function item()

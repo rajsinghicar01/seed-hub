@@ -20,6 +20,10 @@ use Illuminate\Http\RedirectResponse;
 use DataTables;
 use Auth;
 use Session;
+// use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Validation\Rule;
+
+
 
 class SeedTargetController extends Controller
 {
@@ -100,12 +104,20 @@ class SeedTargetController extends Controller
      */
     public function store(Request $request)
     {
+
         if(!empty($request->items)){
             $rules = [ 
                 "centre_id" => "required", 
                 "season_id" => "required",
                 "crop_id" => "required",
-                "items.*" => "required" 
+                "items.*" => "required",
+                'centre_id' => [
+                    'required',
+                    Rule::unique('seed_targets')->where(function ($query) use ($request) {
+                        return $query->where('season_id', $request->season_id)
+                                     ->where('crop_id', $request->crop_id);
+                    }),
+                ],
             ];
     
             foreach($request->items as $key => $value) {
@@ -172,15 +184,29 @@ class SeedTargetController extends Controller
                 "centre_id" => "required", 
                 "season_id" => "required",
                 "crop_id" => "required",
-                "items.*" => "required" 
+                "items.*" => "required",
+                'centre_id' => [
+                    'required',
+                    Rule::unique('seed_targets')->where(function ($query) use ($request) {
+                        return $query->where('season_id', $request->season_id)
+                                     ->where('crop_id', $request->crop_id);
+                    })->ignore($id),
+                ],
             ];
-    
+
             foreach($request->items as $key => $value) {
                 // $rules["items.{$key}.id"] = 'required';
                 $rules["items.{$key}.variety_id"] = 'required';
                 $rules["items.{$key}.category_id"] = 'required';
                 $rules["items.{$key}.total_seed_quantity"] = 'required';
                 $rules["items.{$key}.created_by"] = 'required';
+                // $rules["items.{$key}.seed_target_id"] = [
+                //     'required',
+                //     Rule::unique('seed_target_items')->where(function ($query) use ($request) {
+                //         return $query->where('variety_id', $value["items.{$key}.variety_id"])
+                //                     ->where('category_id', $value["items.{$key}.category_id"]);
+                //     })->ignore($value['id'])
+                // ];
             }
     
             $request->validate($rules);
