@@ -34,6 +34,7 @@ class User extends Authenticatable
         'avatar',
         'status',
         'password',
+        'google_id'
     ];
 
     public function Designation()
