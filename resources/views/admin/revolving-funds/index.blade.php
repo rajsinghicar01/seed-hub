@@ -1,17 +1,18 @@
 @extends('admin.layouts.admin-app')
-@section('page_title', 'Permissions Management')
+@section('page_title', 'Revolving Fund Management')
 
-@section('main_headeing', 'Permissions')
-@section('sub_headeing', 'Permissions List')
+@section('main_headeing', 'Revolving Fund')
+@section('sub_headeing', 'Revolving Fund List')
 
 @section('content_section')
 
 <div class="card-header">
     <h3 class="card-title">@yield('sub_headeing')</h3>
-    @can('user-create')
+    @can('revolving-fund-create')
     <div class="float-right">
-        <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('permissions.create') }}"><i
-                class="fa fa-plus"></i> Create New Permission </a>
+        <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('revolving-funds.create') }}"><i
+                class="fa fa-plus"></i>
+            Create New Revolving Fund </a>
     </div>
     @endcan
 </div>
@@ -26,13 +27,21 @@
             </div>
             @endif
 
+            @if ($message = Session::get('error'))
+                <div class="alert alert-warning alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Warning! </strong> {{ $message }}
+                </div>
+            @endif
+
             <div class="table-responsive">
-                <table class="table table-bordered data-table table-striped" id="data-table" style="width:100%">
+                <table class="table table-bordered table-striped data-table" id="example1" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Gaurd Name</th>
+                            <th>Centre Name</th>
+                            <th>Season</th>
+                            <th>Released Fund (in Lakhs)</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -40,7 +49,10 @@
                     </tbody>
                 </table>
             </div>
+  
         </div>
+
+        
     </div>
 </div>
 
@@ -49,33 +61,38 @@
 
 @section('additional_js')
 <script>
-
 $(function() {
-    var table = $('#data-table').DataTable({
+
+    var table = $('.data-table').DataTable({
         dom: 'Bfrtip',
         buttons: [{
             extend: 'csv',
             text: '<i class="nav-icon fas fa-file-excel" aria-hidden="true"></i> Export to CSV',
             className: 'btn btn-primary',
-            filename: 'permissions_export', // Custom filename
+            filename: 'revolving_fund_export',
             exportOptions: {
-                columns: [0, 1, 2] // Export specific columns (ID, Name, Email, Created At)
+                columns: [0, 1, 2, 3]
             }
         }],
         processing: true,
         serverSide: true,
-        ajax: "{{ route('permissions.index') }}",
+        exportOptions: true,
+        ajax: "{{ route('revolving-funds.index') }}",
         columns: [{
                 data: 'id',
                 name: 'id'
             },
             {
-                data: 'name',
-                name: 'name'
+                data: 'centre_id',
+                name: 'centre_id'
             },
             {
-                data: 'guard_name',
-                name: 'guard_name'
+                data: 'season_id',
+                name: 'season_id'
+            },
+            {
+                data: 'released_fund',
+                name: 'released_fund'
             },
             {
                 data: 'action',
@@ -83,8 +100,10 @@ $(function() {
                 orderable: false,
                 searchable: false
             },
-        ]
+        ],
+        
     });
+
 });
 
 // Confirm before delete
@@ -93,5 +112,3 @@ function confirm_delete() {
 }
 </script>
 @endsection
-
-

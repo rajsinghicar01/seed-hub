@@ -40,20 +40,26 @@
                                         </tr>
                                         <tr>
                                             <th>Phone</th>
-                                            <td>{{ ($user->phone)?'+91-'.$user->phone:'' }}</td>
+                                            <td>{{ ($user->phone)?'+91-'.$user->phone:'--' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Designation</th>
-                                            <td>{{ $user->designation->name }}</td>
+                                            <td>{{ ($user->designation)?$user->designation->name:'--' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Address</th>
-                                            <td>{{ $user->address }}</td>
+                                            <td>{{ ($user->address)?$user->address:'--' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Pincode</th>
-                                            <td>{{ $user->pincode }}</td>
+                                            <td>{{ ($user->pincode)?$user->pincode:'' }}</td>
                                         </tr>
+                                        @if(($user->centre))
+                                        <tr>
+                                            <th>Centre</th>
+                                            <td>{{ ($user->centre->centre_name)?$user->centre->centre_name:'' }}</td>
+                                        </tr>
+                                        @endif
                                         <tr>
                                             <th>Status</th>
                                             <td>

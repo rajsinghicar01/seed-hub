@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,22 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Add active check
+        if (Auth::attempt(array_merge($credentials, ['status' => '1']))) {
+            return redirect()->intended('/admin/dashboard'); 
+        }
+
+        return back()->withErrors([
+            'email' => 'Invalid credentials or account inactive.',
+        ]);
     }
 }

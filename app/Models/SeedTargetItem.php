@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Validation\Rule;
 
 class SeedTargetItem extends Model
 {
@@ -41,5 +42,19 @@ class SeedTargetItem extends Model
     public function status()
     {
         return $this->hasOne(SeedProductionStatus::class);
+    }
+
+    public static function rules($seed_target_id, $item_id = null)
+    {
+        return [
+            'variety_id' => [
+                'required',
+                Rule::unique('seed_target_items')->where(function ($query) use ($seed_target_id) {
+                    return $query->where('seed_target_id', $seed_target_id);
+                })->ignore($item_id)
+            ],
+            'category_id' => 'required',
+            'total_seed_quantity' => 'required|numeric',
+        ];
     }
 }

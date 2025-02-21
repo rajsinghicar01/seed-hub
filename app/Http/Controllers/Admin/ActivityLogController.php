@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\File;
 
 class ActivityLogController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:activity-log-list|activity-log-create|activity-log-edit|activity-log-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:activity-log-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:activity-log-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:activity-log-delete', ['only' => ['destroy']]); 
+    }
 
     public function index(Request $request)
     {

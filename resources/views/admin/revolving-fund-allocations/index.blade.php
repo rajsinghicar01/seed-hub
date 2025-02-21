@@ -1,17 +1,17 @@
 @extends('admin.layouts.admin-app')
-@section('page_title', 'Permissions Management')
+@section('page_title', 'Revolving Fund Allocation')
 
-@section('main_headeing', 'Permissions')
-@section('sub_headeing', 'Permissions List')
+@section('main_headeing', 'Revolving Fund Allocation')
+@section('sub_headeing', 'Revolving Fund Allocation List')
 
 @section('content_section')
 
 <div class="card-header">
     <h3 class="card-title">@yield('sub_headeing')</h3>
-    @can('user-create')
+    @can('state-create')
     <div class="float-right">
-        <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('permissions.create') }}"><i
-                class="fa fa-plus"></i> Create New Permission </a>
+        <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('revolving-fund-allocations.create') }}"><i
+                class="fa fa-plus"></i> Create New Revolving Fund Allocation</a>
     </div>
     @endcan
 </div>
@@ -27,12 +27,12 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table table-bordered data-table table-striped" id="data-table" style="width:100%">
+                <table class="table table-bordered data-table table-striped" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Gaurd Name</th>
+                            <th>Centre Name</th>
+                            <th>Total Fund Allocation</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,33 +49,23 @@
 
 @section('additional_js')
 <script>
-
 $(function() {
-    var table = $('#data-table').DataTable({
-        dom: 'Bfrtip',
-        buttons: [{
-            extend: 'csv',
-            text: '<i class="nav-icon fas fa-file-excel" aria-hidden="true"></i> Export to CSV',
-            className: 'btn btn-primary',
-            filename: 'permissions_export', // Custom filename
-            exportOptions: {
-                columns: [0, 1, 2] // Export specific columns (ID, Name, Email, Created At)
-            }
-        }],
+
+    var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('permissions.index') }}",
+        ajax: "{{ route('revolving-fund-allocations.index') }}",
         columns: [{
                 data: 'id',
                 name: 'id'
             },
             {
-                data: 'name',
-                name: 'name'
+                data: 'centre_id',
+                name: 'centre_id'
             },
             {
-                data: 'guard_name',
-                name: 'guard_name'
+                data: 'total_fund_allocation',
+                name: 'total_fund_allocation'
             },
             {
                 data: 'action',
@@ -85,6 +75,7 @@ $(function() {
             },
         ]
     });
+
 });
 
 // Confirm before delete
@@ -93,5 +84,3 @@ function confirm_delete() {
 }
 </script>
 @endsection
-
-

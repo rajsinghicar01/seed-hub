@@ -27,7 +27,7 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table table-bordered data-table table-striped" style="width:100%">
+                <table class="table table-bordered data-table table-striped" id="designation-table" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -48,9 +48,19 @@
 
 @section('additional_js')
 <script>
-$(function() {
 
-    var table = $('.data-table').DataTable({
+$(function() {
+    var table = $('#designation-table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'csv',
+            text: '<i class="nav-icon fas fa-file-excel" aria-hidden="true"></i> Export to CSV',
+            className: 'btn btn-primary',
+            filename: 'designation_export', // Custom filename
+            exportOptions: {
+                columns: [0, 1] // Export specific columns (ID, Name, Email, Created At)
+            }
+        }],
         processing: true,
         serverSide: true,
         ajax: "{{ route('designations.index') }}",
@@ -70,7 +80,6 @@ $(function() {
             },
         ]
     });
-
 });
 
 // Confirm before delete

@@ -3,7 +3,7 @@
 
 @section('content_auth')
 
-    <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>
+    <p class="login-box-msg">{{ __('Welcome back') }}</p>
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="input-group mb-3">
@@ -50,12 +50,12 @@
     </form>
 
     <div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
+        <p>------------ OR ------------</p>
         <a href="#" class="btn btn-block btn-danger">
-            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+            <i class="fab fa-google-plus mr-2"></i> Continue with Google
+        </a>
+        <a href="#" class="btn btn-block btn-primary">
+            <i class="fab fa-facebook mr-2"></i> Continue with Facebook
         </a>
     </div>
 

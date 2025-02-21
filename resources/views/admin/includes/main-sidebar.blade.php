@@ -347,6 +347,76 @@
                 </li>
                 @endcan
 
+                @canany(['revolving-fund-allocation-list', 'revolving-fund-allocation-create', 'revolving-fund-allocation-edit', 'revolving-fund-allocation-delete'])
+                <li class="nav-item {{ Request::segment(2) == 'revolving-fund-allocations' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'revolving-fund-allocations' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-credit-card"></i>
+                        <p>Fund Allocation<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('revolving-fund-allocations.index')}}"
+                                class="nav-link {{ Route::current()->getName() == 'revolving-fund-allocations.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Fund Allocations</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('revolving-fund-allocations.create')}}"
+                                class="nav-link {{ Route::current()->getName() == 'revolving-fund-allocations.create' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add New Fund Allocation</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
+
+                @canany(['revolving-fund-list', 'revolving-fund-create', 'revolving-fund-edit', 'revolving-fund-delete'])
+                <li class="nav-item {{ Request::segment(2) == 'revolving-funds' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'revolving-funds' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-credit-card"></i>
+                        <p>Revolving Funds<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('revolving-funds.index')}}"
+                                class="nav-link {{ Route::current()->getName() == 'revolving-funds.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Revolving Funds</p>
+                            </a>
+                        </li>
+                        @canany(['revolving-fund-create'])
+                        <li class="nav-item">
+                            <a href="{{route('revolving-funds.create')}}"
+                                class="nav-link {{ Route::current()->getName() == 'revolving-funds.create' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add New Revolving Fund</p>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcan
+
+                @canany(['report-list', 'report-create', 'report-edit', 'report-delete'])
+                <li class="nav-item {{ Request::segment(2) == 'reports' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'reports' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>Reports<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('reports.index')}}"
+                                class="nav-link {{ Route::current()->getName() == 'reports.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Seed Target Report</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
+
                 @canany(['setting-list', 'setting-create', 'setting-edit', 'setting-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'settings' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'settings' ? 'active' : '' }}">
@@ -371,12 +441,15 @@
                 </li>
                 @endcan
 
+                @canany(['activity-log-list', 'activity-log-create', 'activity-log-edit', 'activity-log-delete'])
                 <li class="nav-item">
                     <a href="{{ route('activity.logs') }}" class="nav-link {{ Request::segment(2) == 'activity-logs' ? 'active' : '' }}" >
                         <i class="nav-icon fas fa-history"></i>
                         <p>Activity Logs</p>
                     </a>
                 </li>
+                @endcan
+
                 <li class="nav-header">EXTRAS</li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}"

@@ -60,6 +60,16 @@
 $(function() {
 
     var table = $('.data-table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'csv',
+            text: '<i class="nav-icon fas fa-file-excel" aria-hidden="true"></i> Export to CSV',
+            className: 'btn btn-primary',
+            filename: 'user_export', // Custom filename
+            exportOptions: {
+                columns: [0, 2, 3, 4, 5, 6] // Export specific columns (ID, Name, Email, Created At)
+            }
+        }],
         processing: true,
         serverSide: true,
         exportOptions: true,

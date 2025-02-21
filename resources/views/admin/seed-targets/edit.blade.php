@@ -378,6 +378,22 @@
                                     <th>Reserved seed</th>
                                     <td><span id="view_reserved_seed"></span> (Qtl)</td>
                                 </tr>
+                                <tr>
+                                    <th>Reason for Shortfall</th>
+                                    <td><span id="reason_for_shortfalls"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>Seed Sold</th>
+                                    <td><span id="seed_sold"></span> (Qtl)</td>
+                                </tr>
+                                <tr>
+                                    <th>Seed Sold Date</th>
+                                    <td><span id="seed_sold_date"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>Surplus Seed</th>
+                                    <td><span id="surplus_seed"></span> (Qtl)</td>
+                                </tr>
                         </tbody>
                     </table>
                     </div>
@@ -430,10 +446,15 @@ function display_status_admin(status_id){
         },
         dataType: 'json',
         success: function(result) {
+            // console.log(result);
             $('#view_quantity_produced').html(result.data[0].quantity_produced);
             $('#view_seed_available_for_sale').html(result.data[0].seed_available_for_sale);
             $('#view_seed_price').html(result.data[0].seed_price);
             $('#view_reserved_seed').html(result.data[0].reserved_seed);
+            $('#reason_for_shortfalls').html(result.data[0].reason_for_shortfall);
+            $('#seed_sold').html(result.data[0].seed_sold);
+            $('#seed_sold_date').html(moment(result.data[0].seed_sold_date).format('Do MMM YY'));
+            $('#surplus_seed').html(result.data[0].surplus_seed);
             $('#view_seed_target_item_id').html(result.data[0].seed_target_item_id);
             $('#view_seed_target_item_status_id').html(result.data[0].id);
         }
@@ -480,6 +501,13 @@ $(document).ready(function() {
                     if (errors.seed_target_item_id_edit) {
                         $('#seed_target_item_id_edit_error').text(errors.seed_target_item_id_edit);
                     }
+                    if (errors.seed_sold_edit) {
+                        $('#seed_sold_edit_error').text(errors.seed_sold_edit);
+                    }
+                    if (errors.seed_sold_date_edit) {
+                        $('#seed_sold_date_edit_error').text(errors.seed_sold_date_edit);
+                    }
+                    
                 }
             }
         });
@@ -633,6 +661,7 @@ function get_selected_varieties_by_crop(variety_id) {
             $.each(result.varieties, function(key, value) {
                 $("#" + variety_id).append('<option value="' + value.id + '">' + value.variety_name + '</option>');
             });
+            updateDropdowns();
         }
     });
 }
@@ -640,15 +669,42 @@ function get_selected_varieties_by_crop(variety_id) {
 $(document).ready(function() {
     i = "{{$key}}";
     $(".btn-add-more").click(function(e) {
+        if($('.crop_id').val()==''){
+            alert('Please select crop name first.');
+            return false;
+        }
         e.preventDefault();
         i++;
         get_selected_varieties_by_crop('variety_id_' + i);
         $(".table-add-more tbody").append('<tr> <td><input type="hidden" name="items['+i+'][id]" value=""> <strong>Variety Name:<span class="text-danger">*</span></strong> <select name="items['+i +'][variety_id]" id="variety_id_'+i+'" class="form-control variety_id"> <option value="">Choose Crop Name First</option> </select> <input type="hidden" name="items['+i +'][seed_target_id]" value="{{ $seed_target->id }}"></td> <td> <strong>Seed Category:<span class="text-danger">*</span></strong> <select name="items['+i+'][category_id]" class="form-control"> <option value="">Choose Seed Category</option> @if(!empty($categories)) @foreach($categories as $category) <option value="{{ $category->id }}">{{ $category->name }}</option> @endforeach @endif </select> </td> <td> <strong>Total Seed Quantity (Qtl):<span class="text-danger">*</span></strong> <input type="text" name="items['+i+'][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity"> <input type="hidden" name="items['+i+'][created_by]" value="{{ Auth::user()->id }}"></td> <td><button class="btn btn-outline-danger btn-sm btn-add-more-rm"><i class="fa fa-trash"></i></button></td> </tr>');
+        updateDropdowns();
     });
     $(document).on('click', '.btn-add-more-rm', function() {
         $(this).parents("tr").remove();
+        $(this).parent().remove();
+        updateDropdowns();
+    });
+    $(document).on("change", ".variety_id", function () {
+        updateDropdowns();
     });
 });
+
+//Remove the selected options from variety dropdown
+function updateDropdowns() {
+    let selectedValues = $(".variety_id").map(function () {
+        return $(this).val();      
+    }).get();
+    $(".variety_id").each(function () {
+        let currentValue = $(this).val();
+        $(this).find("option").each(function () {
+            if ($(this).val() !== "" && selectedValues.includes($(this).val()) && $(this).val() !== currentValue) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    });
+}
 
 function deleteItem(item_id) {
     var item_id = item_id;
@@ -665,6 +721,7 @@ function deleteItem(item_id) {
         }
     });
 }
+
 </script>
 @endsection
 

@@ -20,10 +20,7 @@ use Illuminate\Http\RedirectResponse;
 use DataTables;
 use Auth;
 use Session;
-// use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Validation\Rule;
-
-
 
 class SeedTargetController extends Controller
 {
@@ -40,7 +37,6 @@ class SeedTargetController extends Controller
      */
     public function index(Request $request)
     {
-  
         if ($request->ajax()) {
 
             if (isAdmin()) {
@@ -79,10 +75,8 @@ class SeedTargetController extends Controller
                       })
                     ->rawColumns(['centre_id','season_id','crop_id','action'])
                     ->make(true);
-        }
-              
+        }  
         return view('admin.seed-targets.index');
-
     }
 
     /**
@@ -104,13 +98,13 @@ class SeedTargetController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         if(!empty($request->items)){
-            $rules = [ 
+
+            $request->validate([
                 "centre_id" => "required", 
                 "season_id" => "required",
                 "crop_id" => "required",
-                "items.*" => "required",
                 'centre_id' => [
                     'required',
                     Rule::unique('seed_targets')->where(function ($query) use ($request) {
@@ -118,15 +112,19 @@ class SeedTargetController extends Controller
                                      ->where('crop_id', $request->crop_id);
                     }),
                 ],
-            ];
-    
-            foreach($request->items as $key => $value) {
-                $rules["items.{$key}.variety_id"] = 'required';
-                $rules["items.{$key}.category_id"] = 'required';
-                $rules["items.{$key}.total_seed_quantity"] = 'required';
-            }
-    
-            $request->validate($rules);
+                'items' => 'required|array|min:1',
+                // 'items.*.variety_id' => [
+                //     'required',
+                //     Rule::unique('seed_target_items')->where(function ($query) use ($request) {
+                //         return $query->whereIn('seed_target_id', function ($subQuery) use ($request) {
+                //             $subQuery->select('id')->from('seed_targets')->where('crop_id', $request->crop_id);
+                //         });
+                //     })
+                // ],
+                'items.*.variety_id' => 'required',
+                'items.*.category_id' => 'required',
+                'items.*.total_seed_quantity' => 'required|numeric',
+            ]);
     
             $seed_target = SeedTarget::create([
                 "centre_id" => $request->centre_id, 
@@ -135,7 +133,13 @@ class SeedTargetController extends Controller
             ]);
             
             foreach($request->items as $key => $value) {
-                $seed_target->items()->create($value);
+                // $seed_target->items()->create($value);
+                $seed_target->items()->create([
+                    'variety_id' => $value['variety_id'],
+                    'category_id' => $value['category_id'],
+                    'total_seed_quantity' => $value['total_seed_quantity'],
+                    'created_by' => Auth::user()->id
+                ]);
             }
     
             return redirect('admin/seed-targets')->with('success','Seed target created successfully.');

@@ -57,3 +57,21 @@ input[type="file"] {
     padding: 1px;
 }
 
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 !important;
+    margin-left: 0 !important;
+    border: 0px solid transparent !important;
+}
+div.dt-buttons>.dt-button, div.dt-buttons>div.dt-button-split .dt-button {
+    margin-bottom: 0px !important;
+    padding: 5px !important;
+    border: 1px solid rgb(0 123 255) !important;
+    border-radius: 4px !important;
+    color: #007bff !important;
+    background-color: rgb(255 255 255) !important;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+    width: 50px !important;
+}

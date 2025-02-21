@@ -1,0 +1,161 @@
+@extends('admin.layouts.admin-app')
+@section('page_title','Revolving Funds')
+
+@section('main_headeing','Revolving Funds')
+@section('sub_headeing','Create New Revolving Fund')
+
+@section('content_section')
+
+<div class="card-header">
+    <h3 class="card-title">@yield('sub_headeing')</h3>
+    <div class="float-right">
+        <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('revolving-funds.index') }}"><i
+                class="fa fa-arrow-left"></i> Back </a>
+    </div>
+</div>
+<div class="card-body">
+
+    @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> Something went wrong.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form method="POST" action="{{ route('revolving-funds.update', $revolving_fund->id) }}" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Centre Name:<span class="text-danger">*</span></strong>
+                    <select name="centre_id" id="centre_id" class="form-control {{ (isAdmin())?'':'user-seed-target' }}">
+                        <option value="">Choose centre name</option>
+                        @if(!empty($centres))
+                            @foreach($centres as $centre)
+                            <option value="{{ $centre->id }}" {{ ($centre->id==$revolving_fund->centre_id)?'selected':'' }}>{{ $centre->centre_name }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Season Name:<span class="text-danger">*</span></strong>
+                    <select name="season_id" name="season_id" class="form-control {{ (isAdmin())?'':'user-seed-target' }}">
+                        <option value="">Choose season name</option>
+                        @if(!empty($seasons))
+                            @foreach($seasons as $season)
+                            <option value="{{ $season->id }}" {{ ($season->id==$revolving_fund->season_id)?'selected':'' }}>{{ $season->name }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Released Fund (in Lakhs):<span class="text-danger">*</span></strong>
+                    <input type="text" name="released_fund" id="released_fund" placeholder="Released Fund" class="form-control {{ (isAdmin())?'':'user-seed-target' }}" value="{{ $revolving_fund->released_fund }}">
+                </div>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Infrastructure Fund:<span class="text-danger">*</span></strong>
+                    <input type="text" name="infrastructure_fund" id="infrastructure_fund" placeholder="Infrastructure Fund" class="form-control {{ (isAdmin())?'':'user-seed-target' }}" value="{{ $revolving_fund->infrastructure_fund }}">
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Utilized Infrastructure Fund:<span class="text-danger">*</span></strong>
+                    <input type="text" name="utilized_infrastructure_fund" id="utilized_infrastructure_fund" placeholder="Utilized Infrastructure Fund" class="form-control" value="{{ $revolving_fund->utilized_infrastructure_fund }}">
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Available Infrastructure Fund:<span class="text-danger">*</span></strong>
+                    <input type="text" name="available_infrastructure_fund" id="available_infrastructure_fund" placeholder="Available Infrastructure Fund" class="form-control {{ (isAdmin())?'':'user-seed-target' }}" value="{{ $revolving_fund->available_infrastructure_fund }}">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Earning by Seed Sale etc:<span class="text-danger">*</span></strong>
+                    <input type="text" name="earning_by_seed_sale_etc" id="earning_by_seed_sale_etc" placeholder="Earning by Seed Sale etc" class="form-control" value="{{ $revolving_fund->earning_by_seed_sale_etc }}">
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Interest on Released Fund:<span class="text-danger">*</span></strong>
+                    <input type="text" name="interest_on_released_fund" id="interest_on_released_fund" placeholder="Interest on Released Fund" class="form-control" value="{{ $revolving_fund->interest_on_released_fund }}">
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Total Earning Available:<span class="text-danger">*</span></strong>
+                    <input type="text" name="total_earning_available" id="total_earning_available" placeholder="Total Earning Available"  class="form-control {{ (isAdmin())?'':'user-seed-target' }}" value="{{ $revolving_fund->total_earning_available }}">
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="form-group">
+                    <strong>Opening Balance:<span class="text-danger">*</span></strong>
+                    <input type="text" name="opening_balance" id="opening_balance" placeholder="Opening Balance" class="form-control {{ (isAdmin())?'':'user-seed-target' }}" value="{{ $revolving_fund->opening_balance }}">
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <button type="submit" id="editButton" class="btn btn-primary btn-flat">Submit</button>
+        </div>
+    </form>
+</div>
+@endsection
+
+@section('additional_css')
+<style>
+.user-seed-target {
+    pointer-events: none;
+}
+</style>
+@endsection
+
+@section('additional_js')
+<script>
+$("#earning_by_seed_sale_etc, #interest_on_released_fund").keyup(function() {
+    var earning_by_seed_sale_etc = parseInt($('#earning_by_seed_sale_etc').val());
+    var interest_on_released_fund = parseInt($('#interest_on_released_fund').val());
+    
+    var total_earning_available = parseInt(earning_by_seed_sale_etc + interest_on_released_fund);
+    $('#total_earning_available').val(total_earning_available);
+
+    var released_fund = parseInt($('#released_fund').val());
+  
+    var opening_balance = parseInt(released_fund + total_earning_available);
+    $('#opening_balance').val(opening_balance);  
+
+});
+
+$("#utilized_infrastructure_fund").keyup(function() {
+    var infrastructure_fund = parseInt($('#infrastructure_fund').val());
+    var utilized_infrastructure_fund = parseInt($('#utilized_infrastructure_fund').val());
+
+    if(infrastructure_fund >= utilized_infrastructure_fund){
+        var available_infrastructure_fund = parseInt(infrastructure_fund - utilized_infrastructure_fund);
+        $('#available_infrastructure_fund').val(available_infrastructure_fund);
+    }else{
+        $('#utilized_infrastructure_fund').val(0);
+        $('#available_infrastructure_fund').val(infrastructure_fund);
+    }
+    
+    
+
+});
+</script>
+@endsection

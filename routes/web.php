@@ -20,11 +20,15 @@ use App\Http\Controllers\Admin\SeedTargetController;
 use App\Http\Controllers\Admin\SeedProductionStatusController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\RevolvingFundController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\RevolvingFundAllocationController;
 use App\Http\Controllers\SeedAvailabilityController;
 
 use Illuminate\Support\Facades\Auth;
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['verify' => true]);
   
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -62,10 +66,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('/delete-seed-target-items', [SeedTargetController::class, 'delete_seed_target_items'])->name('delete_seed_target_items');
     Route::post('/get_seed_target_items', [SeedTargetController::class, 'get_seed_target_items'])->name('get_seed_target_items');
     Route::resource('seed-targets', SeedTargetController::class);
+    Route::resource('revolving-fund-allocations', RevolvingFundAllocationController::class);
+    Route::resource('revolving-funds', RevolvingFundController::class);
     Route::post('/get-seed-production-statuses', [SeedProductionStatusController::class, 'get_seed_production_statuses'])->name('get_seed_production_statuses');
     Route::post('status_update', [SeedProductionStatusController::class, 'status_update'])->name('status_update');
     Route::resource('seed-production-statuses', SeedProductionStatusController::class);
     Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity.logs');
+
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::post('/reports', [ReportController::class, 'index'])->name('reports.index');
 
     Route::get('add-more', [ProductController::class, 'index']);
     Route::post('add-more', [ProductController::class, 'store'])->name('add-more.store');

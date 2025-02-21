@@ -18,6 +18,8 @@ use Illuminate\Http\RedirectResponse;
 use DataTables;
 use Auth;
 use Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductsExport;
 
 class CentreController extends Controller
 {

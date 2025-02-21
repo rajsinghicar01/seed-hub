@@ -43,14 +43,16 @@
                                 @endif
                             </div>
                             <h3 class="profile-username text-center">{{ $user->name }}</h3>
-                            <p class="text-muted text-center">{{ $user->Designation->name }}</p>
+                            <p class="text-muted text-center">{{ ($user->Designation)? $user->Designation->name:'' }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b><i class="fa fa-envelope" aria-hidden="true"></i></b> <a class="float-right">{{ $user->email }}</a>
                                 </li>
+                                @if(!empty($user->phone))
                                 <li class="list-group-item">
                                     <b><i class="fa fa-phone-square" aria-hidden="true"></i></b> <a class="float-right">+91-{{ $user->phone }}</a>
                                 </li>
+                                @endif
                             </ul>
                             @if($user->status)
                             <a href="javascript::void();" class="btn btn-primary btn-block"><b><i class="fa fa-check-circle" aria-hidden="true"></i> Active</b></a>
@@ -65,12 +67,16 @@
                             <h3 class="card-title"><i class="fas fa-user mr-1"></i> About Me</h3>
                         </div>
                         <div class="card-body">
+                            @if($user->address)
                             <strong><i class="fas fa-map mr-1"></i> Address</strong>
                             <p class="text-muted">{{ $user->address }}</p>
                             <hr>
+                            @endif
+                            @if($user->pincode)
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Pincode</strong>
                             <p class="text-muted">{{ $user->pincode }}</p>
                             <hr>
+                            @endif
                             <strong><i class="far fa-calendar-alt mr-1"></i> Member since</strong>
                             <p class="text-muted">{{ $user->created_at->format('d M Y') }}</p>
                         </div>
@@ -97,19 +103,19 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Phone<span class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="phone" value="{{ $user->phone }}" placeholder="Name">
+                                        <input type="text" class="form-control" name="phone" value="{{ $user->phone }}" placeholder="Phone">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Address</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="address" value="{{ $user->address }}" placeholder="Name">
+                                        <input type="text" class="form-control" name="address" value="{{ $user->address }}" placeholder="Address">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Pincode</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="pincode" value="{{ $user->pincode }}" placeholder="Skills">
+                                        <input type="text" class="form-control" name="pincode" value="{{ $user->pincode }}" placeholder="Pincode">
                                     </div>
                                 </div>
                                 <div class="form-group row">

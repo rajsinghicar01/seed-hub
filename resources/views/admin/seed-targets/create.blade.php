@@ -83,7 +83,7 @@
                 <thead>
                     <tr>
                         <th colspan="3">Seed Target Items</th>
-                        <th><button class="btn btn-outline-primary btn-sm btn-add-more"><i class="fa fa-plus"></i> Add More</button></th>
+                        <th><button type="button" class="btn btn-outline-primary btn-sm btn-add-more"><i class="fa fa-plus"></i> Add More</button></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,7 +117,7 @@
                             @enderror
                         </td>
                         <td>
-                            <strong>Total Seed Quantity (Kg):<span class="text-danger">*</span></strong>
+                            <strong>Total Seed Quantity (Qtl):<span class="text-danger">*</span></strong>
                             <input type="text" name="items[{{$key}}][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity" value="{{ $item['total_seed_quantity'] ?? '' }}">
                             @error("items.{$key}.total_seed_quantity")
                             <p class="text-danger">{{ $message }}</p>
@@ -146,7 +146,7 @@
                             </select>
                         </td>
                         <td>
-                            <strong>Total Seed Quantity (Kg):<span class="text-danger">*</span></strong>
+                            <strong>Total Seed Quantity (Qtl):<span class="text-danger">*</span></strong>
                             <input type="text" name="items[0][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity">
                         </td>
                         <td><button class="btn btn-outline-danger btn-sm btn-add-more-rm"><i class="fa fa-trash"></i></button></td>
@@ -167,6 +167,7 @@
 
 @section('additional_js')
 <script>
+
 function jsFunction(crop_value) {
     var crop_value = crop_value;
     $(".variety_id").html('');
@@ -207,6 +208,7 @@ function get_selected_varieties_by_crop(variety_id) {
                 $("#"+variety_id).append('<option value="' + value.id + '">' + value
                     .variety_name + '</option>');
             });
+            updateDropdowns();
         }
     });
 }
@@ -214,15 +216,42 @@ function get_selected_varieties_by_crop(variety_id) {
 $(document).ready(function() {
     i = "{{$key}}";
     $(".btn-add-more").click(function(e) {
+        if($('.crop_id').val()==''){
+            alert('Please select crop name first.');
+            return false;
+        }
         e.preventDefault();
         i++;
         get_selected_varieties_by_crop('variety_id_'+i);
-        $(".table-add-more tbody").append('<tr> <td> <strong>Variety Name:<span class="text-danger">*</span></strong> <select name="items[' + i + '][variety_id]" id="variety_id_' + i + '" class="form-control variety_id"> <option value="">Choose Crop Name First</option> </select> </td> <td> <strong>Seed Category:<span class="text-danger">*</span></strong> <select name="items[' + i + '][category_id]" class="form-control"> <option value="">Choose Seed Category</option> @if(!empty($categories)) @foreach($categories as $category) <option value="{{ $category->id }}">{{ $category->name }}</option> @endforeach @endif </select> </td> <td> <strong>Total Seed Quantity (Kg):<span class="text-danger">*</span></strong> <input type="text" name="items[' + i + '][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity"> </td> <td><button class="btn btn-outline-danger btn-sm btn-add-more-rm"><i class="fa fa-trash"></i></button></td> </tr>'
-        );
+        $(".table-add-more tbody").append('<tr> <td> <strong>Variety Name:<span class="text-danger">*</span></strong> <select name="items[' + i + '][variety_id]" id="variety_id_' + i + '" class="form-control variety_id"> <option value="">Choose Crop Name First</option> </select> </td> <td> <strong>Seed Category:<span class="text-danger">*</span></strong> <select name="items[' + i + '][category_id]" class="form-control"> <option value="">Choose Seed Category</option> @if(!empty($categories)) @foreach($categories as $category) <option value="{{ $category->id }}">{{ $category->name }}</option> @endforeach @endif </select> </td> <td> <strong>Total Seed Quantity (Qtl):<span class="text-danger">*</span></strong> <input type="text" name="items[' + i + '][total_seed_quantity]" class="form-control" placeholder="Total Seed Quantity"> </td> <td><button class="btn btn-outline-danger btn-sm btn-add-more-rm"><i class="fa fa-trash"></i></button></td> </tr>');
+        updateDropdowns();
     });
     $(document).on('click', '.btn-add-more-rm', function() {
         $(this).parents("tr").remove();
+        $(this).parent().remove();
+        updateDropdowns();
+    });
+
+    $(document).on("change", ".variety_id", function () {
+        updateDropdowns();
     });
 });
+
+//Remove the selected options from variety dropdown
+function updateDropdowns() {
+    let selectedValues = $(".variety_id").map(function () {
+        return $(this).val();      
+    }).get();
+    $(".variety_id").each(function () {
+        let currentValue = $(this).val();
+        $(this).find("option").each(function () {
+            if ($(this).val() !== "" && selectedValues.includes($(this).val()) && $(this).val() !== currentValue) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    });
+}
 </script>
 @endsection
