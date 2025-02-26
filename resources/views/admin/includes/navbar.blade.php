@@ -16,7 +16,11 @@
                     <a href="#" class="dropdown-item">
                         <div class="media">
                             @if(!empty(Auth::user()->avatar))
-                                <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" class="img-size-50 mr-3 img-circle">
+                                @if(str_contains(Auth::user()->avatar, 'https'))
+                                    <img src="{{ Auth::user()->avatar }}" class="img-size-50 mr-3 img-circle">
+                                @else
+                                    <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" class="img-size-50 mr-3 img-circle">
+                                @endif
                             @else
                                 <img src="{{ asset('storage/profiles/avatar.png') }}" class="img-size-50 mr-3 img-circle">
                             @endif
@@ -57,7 +61,11 @@
                 <div class="box-profile">
                     <div class="text-center">
                         @if(!empty(Auth::user()->avatar))
-                            <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" class="profile-user-img img-fluid img-circle" style="border: 2px solid #adb5bd;margin: -7px 0px;padding: 1px;width: 40px;">
+                            @if(str_contains(Auth::user()->avatar, 'https'))
+                                <img src="{{ Auth::user()->avatar }}" class="profile-user-img img-fluid img-circle" style="border: 2px solid #adb5bd;margin: -7px 0px;padding: 1px;width: 40px;">
+                            @else
+                                <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" class="profile-user-img img-fluid img-circle" style="border: 2px solid #adb5bd;margin: -7px 0px;padding: 1px;width: 40px;">
+                            @endif
                         @else
                             <img src="{{ asset('storage/profiles/avatar.png') }}" class="profile-user-img img-fluid img-circle" style="border: 2px solid #adb5bd;margin: -7px 0px;padding: 1px;width: 40px;">
                         @endif
@@ -69,11 +77,14 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                         @if(!empty(Auth::user()->avatar))
-                            <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" class="profile-user-img img-fluid img-circle">
+                            @if(str_contains(Auth::user()->avatar, 'https'))
+                                <img src="{{ Auth::user()->avatar }}" class="profile-user-img img-fluid img-circle">
+                            @else
+                                <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" class="profile-user-img img-fluid img-circle">
+                            @endif
                         @else
                             <img src="{{ asset('storage/profiles/avatar.png') }}" class="profile-user-img img-fluid img-circle">
                         @endif
-                        
                     </div>
                     <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
 

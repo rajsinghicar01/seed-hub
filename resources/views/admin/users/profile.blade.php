@@ -37,7 +37,11 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 @if(!empty($user->avatar))
-                                    <img src="{{ asset('storage/profiles/' . $user->avatar) }}" class="profile-user-img img-fluid img-circle">
+                                    @if(str_contains($user->avatar, 'https'))
+                                        <img src="{{ Auth::user()->avatar }}" class="profile-user-img img-fluid img-circle">
+                                    @else
+                                        <img src="{{ asset('storage/profiles/' . Auth::user()->avatar) }}" class="profile-user-img img-fluid img-circle">
+                                    @endif
                                 @else
                                     <img src="{{ asset('storage/profiles/avatar.png') }}" class="profile-user-img img-fluid img-circle">
                                 @endif
