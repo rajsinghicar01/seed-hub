@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Spatie\Permission\Models\Role;
+use Spatie\Activitylog\Models\Activity;
 
 class GoogleController extends Controller
 {
@@ -33,6 +34,13 @@ class GoogleController extends Controller
             if (!$user->hasRole('User')) {
                 $user->assignRole('User');
             }
+
+            // Log activity manually (optional)
+            activity()
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties(['email' => $googleUser->getEmail()])
+            ->log('User logged in with Google');
 
             Auth::login($user);
             return redirect()->route('dashboard'); // Change this route as needed

@@ -54,7 +54,7 @@
         <a href="{{ url('auth/google') }}" class="btn btn-block btn-danger">
             <i class="fab fa-google-plus mr-2"></i> Continue with Google
         </a>
-        <a href="#" class="btn btn-block btn-primary">
+        <a href="#" onclick="alert('Hello World')" class="btn btn-block btn-primary">
             <i class="fab fa-facebook mr-2"></i> Continue with Facebook
         </a>
     </div>

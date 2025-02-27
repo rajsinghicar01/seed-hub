@@ -30,6 +30,7 @@ class ActivityLogController extends Controller
             $activities = Activity::latest();
             
             return Datatables::of($activities)
+                    ->addIndexColumn()
                     ->addColumn('subject_id', function ($row) {
                         return get_user_by_id($row->subject_id)->name;
                     })
@@ -42,7 +43,7 @@ class ActivityLogController extends Controller
                     ->addColumn('created_at', function ($row) {
                         return $row->created_at->format('d M Y H:t:s A');
                     })
-                    ->addIndexColumn()
+                    
                     ->rawColumns(['subject_id','causer_id','properties','created_at'])
                     ->make(true);
         }

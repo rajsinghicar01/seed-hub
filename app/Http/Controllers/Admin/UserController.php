@@ -21,6 +21,13 @@ use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]); 
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,11 +41,21 @@ class UserController extends Controller
             return Datatables::of($users)
                     ->addIndexColumn()
                     ->addColumn('avatar', function ($row) {
+                        // if(!empty($row->avatar)){
+                        //     return '<img src="'.asset('storage/profiles/' . $row->avatar).'" class="img-circle" style="width: 30px;">';
+                        // }else{
+                        //     return '<img src="'.asset('storage/profiles/avatar.png').'" class="img-circle" style="width: 30px;">';
+                        // } 
+
                         if(!empty($row->avatar)){
-                            return '<img src="'.asset('storage/profiles/' . $row->avatar).'" class="img-circle" style="width: 30px;">';
+                            if(str_contains($row->avatar, 'https')){
+                                return '<img src="'.$row->avatar.'" class="img-circle" style="width: 30px;">';
+                            }else{
+                                return '<img src="'.asset('storage/profiles/' . $row->avatar).'" class="img-circle" style="width: 30px;">';
+                            }
                         }else{
                             return '<img src="'.asset('storage/profiles/avatar.png').'" class="img-circle" style="width: 30px;">';
-                        } 
+                        }
                     })
                     
                     ->addColumn('status', function ($row) {

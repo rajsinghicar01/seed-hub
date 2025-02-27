@@ -29,7 +29,7 @@
                             <th>Event</th>
                             <th>Subject</th>
                             <th>Causer</th>
-                            <th>Message</th>
+                            <th style="width:150px;">Message</th>
                             <th>Created at</th>
                         </tr>
                     </thead>

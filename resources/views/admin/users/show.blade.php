@@ -22,9 +22,13 @@
                         <tr>
                             <td width="20%">
                                 @if(!empty($user->avatar))
-                                    <img src="{{ asset('storage/profiles/' . $user->avatar) }}" class="img img-responsive">
+                                    @if(str_contains($user->avatar, 'https'))
+                                        <img src="{{ $user->avatar }}" class="img img-responsive img-circle img-thumbnail" style="width:100%;">
+                                    @else
+                                        <img src="{{ asset('storage/profiles/' . $user->avatar) }}" class="img img-responsive img-circle img-thumbnail" style="width:100%;">
+                                    @endif
                                 @else
-                                    <img src="{{ asset('storage/profiles/avatar.png') }}" class="img img-responsive">
+                                    <img src="{{ asset('storage/profiles/avatar.png') }}" class="img img-responsive img-circle img-thumbnail" style="width:100%;">
                                 @endif
                             </td>
                             <td>
@@ -52,7 +56,7 @@
                                         </tr>
                                         <tr>
                                             <th>Pincode</th>
-                                            <td>{{ ($user->pincode)?$user->pincode:'' }}</td>
+                                            <td>{{ ($user->pincode)?$user->pincode:'--' }}</td>
                                         </tr>
                                         @if(($user->centre))
                                         <tr>
