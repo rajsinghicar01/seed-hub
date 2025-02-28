@@ -47,5 +47,13 @@ class ReportController extends Controller
         return view('admin.reports.seed-targets', compact('centres','seasons','seed_targets'));
     }
 
+    public function revolving_fund_reports(Request $request){
+
+        $centres = Centre::get();
+        $seasons = Season::get();
+
+        return view('admin.reports.revolving-fund-reports', compact('centres','seasons'));
+    }
+
     
 }

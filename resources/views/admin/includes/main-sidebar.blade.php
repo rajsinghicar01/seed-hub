@@ -413,6 +413,13 @@
                                 <p>Seed Target Report</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('reports.revolving_fund_reports')}}"
+                                class="nav-link {{ Route::current()->getName() == 'reports.revolving_fund_reports' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Revolving Fund Reports</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 @endcan

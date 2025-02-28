@@ -80,6 +80,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::post('/reports', [ReportController::class, 'index'])->name('reports.index');
 
+    Route::get('/reports/revolving-fund-reports', [ReportController::class, 'revolving_fund_reports'])->name('reports.revolving_fund_reports');
+    Route::post('/reports/revolving-fund-reports', [ReportController::class, 'revolving_fund_reports'])->name('reports.revolving_fund_reports');
+
     Route::get('add-more', [ProductController::class, 'index']);
     Route::post('add-more', [ProductController::class, 'store'])->name('add-more.store');
     
