@@ -47,6 +47,17 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
+                    <strong>Season:<span class="text-danger">*</span></strong>
+                    <select name="season" class="form-control">
+                        <option value="">Choose Season</option>
+                        @foreach($seasons as $season)
+                        <option value="{{ $season->id }}" {{ ($fund->season_id == $season->id)?'selected':'' }}>{{ $season->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
                     <strong>Total Fund Allocation:<span class="text-danger">*</span></strong>
                     <input type="text" name="total_fund_allocation" placeholder="Total Fund Allocation" value="{{ $fund->total_fund_allocation }}" class="form-control">
                 </div>

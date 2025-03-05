@@ -33,4 +33,10 @@ class RevolvingFund extends Model
     {
         return $this->belongsTo(Season::class);
     }
+
+    public function RevolvingFundAllocation()
+    {
+        return $this->belongsTo(RevolvingFundAllocation::class);
+    }
+
 }

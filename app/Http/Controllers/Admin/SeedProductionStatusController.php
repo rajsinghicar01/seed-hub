@@ -88,6 +88,7 @@ class SeedProductionStatusController extends Controller
             'seed_available_for_sale' => $request->seed_available_for_sale,
             'seed_price' => $request->seed_price,
             'reason_for_shortfall' => $request->reason_for_shortfall,
+            'major_constraints_for_distribution' => $request->major_constraints_for_distribution,
             'reserved_seed' => $request->reserved_seed,
             'seed_target_item_id' => $request->seed_target_item_id
         ]);
@@ -166,6 +167,7 @@ class SeedProductionStatusController extends Controller
         $status->seed_price = $request->seed_price_edit;
         $status->reserved_seed = $request->reserved_seed_edit;
         $status->reason_for_shortfall = $request->reason_for_shortfall_edit;
+        $status->major_constraints_for_distribution = $request->major_constraints_for_distribution_edit;
         $status->seed_sold = $request->seed_sold_edit;
         $status->seed_sold_date = $request->seed_sold_date_edit;
         $status->update();

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Centre;
 use App\Models\Season;
 use App\Models\SeedTarget;
+use App\Models\RevolvingFundAllocation;
+use App\Models\RevolvingFund;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -36,6 +38,10 @@ class ReportController extends Controller
         $seasons = Season::get();
 
         $seed_targets = SeedTarget::with('centre','season','crop','items')->get();
+
+        // $funds = RevolvingFundAllocation::with('RevolvingFundAllocation')->get();
+
+        // return $funds;
 
         if ($request->centre_id) {
             $seed_targets = $seed_targets->where('centre_id', $request->centre_id);

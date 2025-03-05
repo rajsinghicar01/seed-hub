@@ -126,14 +126,14 @@
                                     @endif
                                     <td>{{ $item->variety->variety_name }}</td>
                                     <td>{{ $item->variety->year_of_notification }}</td>
-                                    <td>{{ $seed_target->season->name }}</td>
+                                    <td>Rabi</td>
                                     <td>{{ number_format($item->total_seed_quantity, 2, '.', ',') }}</td>
                                     <td>{{ ($item->status)? number_format($item->status->quantity_produced, 2, '.', ','):'-' }}</td>
                                     <td>{{ ($item->status)? $item->status->reason_for_shortfall:'-' }}</td>
                                     <td>{{ ($item->status)? number_format($item->status->seed_sold, 2, '.', ','):'-' }}</td>
                                     <td>{{ ($item->status)? number_format($item->status->seed_available_for_sale, 2, '.', ','):'-' }}</td>
                                     <td>{{ ($item->status)? number_format($item->status->surplus_seed, 2, '.', ','):'-' }}</td>
-                                    <td>Non lifting of seed from state government agencies.</td>
+                                    <td>{{ ($item->status)? $item->status->major_constraints_for_distribution:'-' }}</td>
                                 </tr>
                             @endforeach
                             <tr> 

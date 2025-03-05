@@ -20,4 +20,15 @@ class RevolvingFundAllocation extends Model
     {
         return $this->belongsTo(Centre::class);
     }
+
+    public function season()
+    {
+        return $this->belongsTo(Season::class);
+    }
+
+    public function funds()
+    {
+        return $this->hasMany(RevolvingFund::class);
+    }
+
 }

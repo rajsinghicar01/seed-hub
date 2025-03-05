@@ -32,6 +32,7 @@
                         <tr>
                             <th>No</th>
                             <th>Centre Name</th>
+                            <th>Season</th>
                             <th>Total Fund Allocation</th>
                             <th>Action</th>
                         </tr>
@@ -62,6 +63,10 @@ $(function() {
             {
                 data: 'centre_id',
                 name: 'centre_id'
+            },
+            {
+                data: 'season_id',
+                name: 'season_id'
             },
             {
                 data: 'total_fund_allocation',

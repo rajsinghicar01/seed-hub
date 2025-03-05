@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\RevolvingFundAllocation;
 use App\Models\Centre;
+use App\Models\Season;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
@@ -28,6 +29,7 @@ class RevolvingFundAllocationController extends Controller
      */
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
 
             $funds = RevolvingFundAllocation::query();
@@ -36,6 +38,9 @@ class RevolvingFundAllocationController extends Controller
                     ->addIndexColumn()
                     ->addColumn('centre_id', function ($row){
                         return $row->centre->centre_name;
+                    })
+                    ->addColumn('season_id', function ($row){
+                        return $row->season->name;
                     })
                     ->addColumn('action', function ($row) {
                         $actionBtn = '<div style="display:flex">';
@@ -51,7 +56,7 @@ class RevolvingFundAllocationController extends Controller
                         } 
                         return $actionBtn;
                       })
-                    ->rawColumns(['centre_id','action'])
+                    ->rawColumns(['centre_id', 'season_id', 'action'])
                     ->make(true);
         }
               
@@ -65,7 +70,8 @@ class RevolvingFundAllocationController extends Controller
     public function create()
     {
         $centres = Centre::get();
-        return view('admin.revolving-fund-allocations.create', compact('centres'));
+        $seasons = Season::get();
+        return view('admin.revolving-fund-allocations.create', compact('centres','seasons'));
     }
 
     /**
@@ -73,12 +79,18 @@ class RevolvingFundAllocationController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+
+        $this->validate($request,[
             'centre_id' => 'required|unique:revolving_fund_allocations,centre_id',
-            'total_fund_allocation' => 'required|numeric'
+            'total_fund_allocation' => 'required|numeric',
+            'season' => 'required'
         ]);
-    
-        RevolvingFundAllocation::create($request->all());
+
+        $fund = new RevolvingFundAllocation();
+        $fund->centre_id = $request->centre_id;
+        $fund->total_fund_allocation = $request->total_fund_allocation;
+        $fund->season_id = $request->season;
+        $fund->save();
     
         return redirect('admin/revolving-fund-allocations')->with('success','Revolving fund allocated successfully.');
     }
@@ -98,7 +110,8 @@ class RevolvingFundAllocationController extends Controller
     {
         $fund = RevolvingFundAllocation::find($id);
         $centres = Centre::all();
-        return view('admin.revolving-fund-allocations.edit',compact('fund','centres'));
+        $seasons = Season::get();
+        return view('admin.revolving-fund-allocations.edit',compact('fund','centres','seasons'));
     }
 
     /**

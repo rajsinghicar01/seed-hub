@@ -81,7 +81,7 @@
                     <tbody>
                         <tr>
                             <th rowspan="2">Total Allocation (2018-19 to 2022-23)</th>
-                            <th colspan="5">Release</th>
+                            <th colspan="6">Release</th>
                         </tr>
                         <tr>
                             <td>2018-19</td>
@@ -89,6 +89,7 @@
                             <td>2020-21</td>
                             <td>2021-22</td>
                             <td>2022-23</td>
+                            <td>Total</td>
                         </tr>
                         <tr>
                             <td>100</td>
@@ -97,21 +98,32 @@
                             <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
                             <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
                             <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
+                            <td>100</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <p><strong>I) Revolving fund release status</strong></p>
+                <p><strong>I) Revolving fund release status </strong></p>
+                <p><strong>A) 2022-23-Final </strong></p>
                 <table class="table table-bordered table-striped text-center">
                     <tbody>
                         <tr>
                             <th>SI. No.</th>
-                            <th>Pening balance (Rs. in Lakhs) As on 1st April, 2022</th>
+                            <th>Opening balance (Rs. in Lakhs) As on 1st April, 2022</th>
                             <th>Release during 2023(Rs. in Lakhs)</th>
                             <th>Expenditure during 2022-23</th>
                             <th>Seed Procurement</th>
                             <th>Seed Sold</th>
                             <th>Balance amount (Rs. in Lakhs)</th>
+                        </tr>
+                        <tr>
+                            <td>100</td>
+                            <td>50.00 (Rs. 40.0 lakhs through e-mail dated 10-01-19 and Rs. 10.0 lakhs vide letter dated 26-03-19)</td>
+                            <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
+                            <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
+                            <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
+                            <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
+                            <td>7.5 (Letter No. 6-94/E/2009 dated 03-01-2030)</td>
                         </tr>
                         <tr>
                             <td>100</td>

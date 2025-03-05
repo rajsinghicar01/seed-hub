@@ -15,6 +15,7 @@ class SeedProductionStatus extends Model
         'reserved_seed',
         'seed_target_item_id',
         'reason_for_shortfall',
+        'major_constraints_for_distribution',
         'seed_sold',
         'seed_sold_date'
     ];

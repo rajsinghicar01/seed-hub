@@ -251,6 +251,13 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <strong>Major Constraints For Distribution:</small></strong>
+                                    <textarea name="major_constraints_for_distribution" id="major_constraints_for_distribution" class="form-control"></textarea>
+                                    <p id="major_constraints_for_distribution_error" class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <strong>Reserved Seed: (Qtl)<span class="text-danger">*</span></strong>
                                     <input type="text" name="reserved_seed" id="reserved_seed" class="form-control" readonly="true">
                                     <input type="hidden" name="seed_target_item_id" id="seed_target_item_id" class="form-control">
@@ -318,6 +325,13 @@
                                     <strong>Reason for Shortfall: <small>(If Target not achieved)</small></strong>
                                     <textarea name="reason_for_shortfall_edit" id="reason_for_shortfall_edit" class="form-control"></textarea>
                                     <p id="reason_for_shortfall_edit_error" class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Major Constraints For Distribution:</small></strong>
+                                    <textarea name="major_constraints_for_distribution_edit" id="major_constraints_for_distribution_edit" class="form-control"></textarea>
+                                    <p id="major_constraints_for_distribution_edit_error" class="text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -427,6 +441,7 @@ function display_status(status_id,display_status){
             $('#seed_price_edit').val(result.data[0].seed_price);
             $('#reserved_seed_edit').val(result.data[0].reserved_seed);
             $('#reason_for_shortfall_edit').val(result.data[0].reason_for_shortfall);
+            $('#major_constraints_for_distribution_edit').val(result.data[0].major_constraints_for_distribution);
             $('#seed_sold_edit').val(result.data[0].seed_sold);
             $('#seed_sold_date_edit').val(result.data[0].seed_sold_date);
             $('#seed_target_item_id_edit').val(result.data[0].seed_target_item_id);

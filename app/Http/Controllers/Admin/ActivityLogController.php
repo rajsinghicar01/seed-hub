@@ -38,7 +38,7 @@ class ActivityLogController extends Controller
                         return $row->causer?->name ?? 'System';
                     })
                     ->addColumn('properties', function ($row) {
-                        return $row->properties;
+                        return chunk_split($row->properties, 50);
                     })
                     ->addColumn('created_at', function ($row) {
                         return $row->created_at->format('d M Y H:t:s A');
