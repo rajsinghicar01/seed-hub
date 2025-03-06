@@ -42,6 +42,9 @@ class RevolvingFundAllocationController extends Controller
                     ->addColumn('season_id', function ($row){
                         return $row->season->name;
                     })
+                    ->addColumn('created_at', function ($row){
+                        return $row->created_at->format('d M Y h:m A');
+                    })
                     ->addColumn('action', function ($row) {
                         $actionBtn = '<div style="display:flex">';
                         if( Auth::user()->hasPermissionTo('revolving-fund-allocation-edit') ) {
@@ -56,7 +59,7 @@ class RevolvingFundAllocationController extends Controller
                         } 
                         return $actionBtn;
                       })
-                    ->rawColumns(['centre_id', 'season_id', 'action'])
+                    ->rawColumns(['centre_id', 'season_id', 'created_at', 'action'])
                     ->make(true);
         }
               

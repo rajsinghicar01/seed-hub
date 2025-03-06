@@ -56,6 +56,9 @@ class RevolvingFundController extends Controller
                     ->addColumn('released_fund', function ($RevolvingFund){
                         return $RevolvingFund->released_fund;
                     })
+                    ->addColumn('created_at', function ($RevolvingFund){
+                        return $RevolvingFund->created_at->format('d M Y h:m A');
+                    })
                     ->addColumn('action', function ($RevolvingFund) {
                         $actionBtn = '<div style="display:flex">';
                         if( Auth::user()->hasPermissionTo('revolving-fund-list') ) {
@@ -73,7 +76,7 @@ class RevolvingFundController extends Controller
                         } 
                         return $actionBtn;
                     })
-                    ->rawColumns(['centre_id','season_id','released_fund','action'])
+                    ->rawColumns(['centre_id','season_id','released_fund','created_at','action'])
                     ->make(true);
         }  
         return view('admin.revolving-funds.index');

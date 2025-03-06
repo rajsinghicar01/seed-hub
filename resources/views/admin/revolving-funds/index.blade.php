@@ -42,6 +42,7 @@
                             <th>Centre Name</th>
                             <th>Season</th>
                             <th>Released Fund (in Lakhs)</th>
+                            <th>Created At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -93,6 +94,10 @@ $(function() {
             {
                 data: 'released_fund',
                 name: 'released_fund'
+            },
+            {
+                data: 'created_at',
+                name: 'created_at'
             },
             {
                 data: 'action',
