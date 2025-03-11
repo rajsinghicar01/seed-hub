@@ -62,7 +62,7 @@ class RevolvingFundController extends Controller
                     ->addColumn('action', function ($RevolvingFund) {
                         $actionBtn = '<div style="display:flex">';
                         if( Auth::user()->hasPermissionTo('revolving-fund-list') ) {
-                            $actionBtn .= '<a href="'.route('revolving-funds.show',$RevolvingFund->id).'"  title="View" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i></a>';
+                            //$actionBtn .= '<a href="'.route('revolving-funds.show',$RevolvingFund->id).'"  title="View" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i></a>';
                         }
                         if( Auth::user()->hasPermissionTo('revolving-fund-edit') ) {
                             $actionBtn .= '<a href="'.route('revolving-funds.edit',$RevolvingFund->id).'" title="Edit" class="btn btn-outline-primary btn-sm mr-1"><i class="fas fa-edit"></i></a>';
@@ -89,7 +89,7 @@ class RevolvingFundController extends Controller
     {
         $centres = Centre::get();
         $seasons = Season::get();
-    
+     
         return view('admin.revolving-funds.create',compact('centres','seasons'));
     }
 
@@ -108,9 +108,25 @@ class RevolvingFundController extends Controller
                 }),
             ],
             "released_fund" => "required|numeric",
+            "description" => 'required',
             "infrastructure_fund" => "required|numeric",
-            "utilized_infrastructure_fund" => "required|numeric",
-            "available_infrastructure_fund" => "required|numeric"
+
+            // "utilized_infrastructure_fund" => "numeric",
+            // "available_infrastructure_fund" => "numeric",
+            // "training_organized" => "numeric",
+            // "field_day" => "numeric",
+            // "seed_procurement" => "numeric",
+            // "seed_quantity" => "numeric",
+            // "procurement_rate" => "numeric",
+            // "farm_operations" => "numeric",
+            // "other_activities" => "numeric",
+            // "total_expenditures" => "numeric",
+            // "seed_sold" => "numeric",
+            // "seed_sold_rate" => "numeric",
+            // "amount_receipt" => "numeric",
+            // "interest_on_released_fund" => "numeric",
+            // "total_incomes" => "numeric",
+            // "opening_balance" => "numeric"
         ]);
 
         $allocated_fund = RevolvingFundAllocation::where('centre_id',$request->centre_id)->first()->total_fund_allocation;
@@ -123,9 +139,25 @@ class RevolvingFundController extends Controller
                 "centre_id" => $request->centre_id, 
                 "season_id" => $request->season_id, 
                 "released_fund" => $request->released_fund,
+                "description" => $request->description,
                 "infrastructure_fund" => $request->infrastructure_fund,
                 "utilized_infrastructure_fund" => $request->utilized_infrastructure_fund,
-                "available_infrastructure_fund" => $request->available_infrastructure_fund
+                "available_infrastructure_fund" => $request->available_infrastructure_fund,
+                "training_organized" => $request->training_organized,
+                "field_day" => $request->field_day,
+                "seed_procurement" => $request->seed_procurement,
+                "seed_quantity" => $request->seed_quantity,
+                "procurement_rate" => $request->procurement_rate,
+                "procurement_amount" => $request->procurement_amount,
+                "farm_operations" => $request->farm_operations,
+                "other_activities" => $request->other_activities,
+                "total_expenditures" => $request->total_expenditures,
+                "seed_sold" => $request->seed_sold,
+                "seed_sold_rate" => $request->seed_sold_rate,
+                "amount_receipt" => $request->amount_receipt,
+                "interest_on_released_fund" => $request->interest_on_released_fund,
+                "total_incomes" => $request->total_incomes,
+                "opening_balance" => $request->opening_balance,
             ]);
     
             return redirect('admin/revolving-funds')->with('success','Revolving fund created successfully.');
@@ -169,26 +201,54 @@ class RevolvingFundController extends Controller
                     return $query->where('season_id', $request->season_id);
                 })->ignore($id),
             ],
-            "released_fund" => "required",
-            "earning_by_seed_sale_etc" => "required",
-            "interest_on_released_fund" => "required",
-            "total_earning_available" => "required",
-            "opening_balance" => "required",
-            "infrastructure_fund" => "required",
-            "utilized_infrastructure_fund" => "required"
+            "released_fund" => "required|numeric",
+            "description" => 'required',
+            "infrastructure_fund" => "required|numeric",
+            "utilized_infrastructure_fund" => "numeric",
+            "available_infrastructure_fund" => "numeric",
+            "training_organized" => "numeric",
+            "field_day" => "numeric",
+            "seed_procurement" => "numeric",
+            "seed_quantity" => "numeric",
+            "procurement_rate" => "numeric",
+            "farm_operations" => "numeric",
+            "other_activities" => "numeric",
+            "total_expenditures" => "numeric",
+            "seed_sold" => "numeric",
+            "seed_sold_rate" => "numeric",
+            "amount_receipt" => "numeric",
+            "interest_on_released_fund" => "numeric",
+            "total_incomes" => "numeric",
+            "opening_balance" => "numeric"
         ]);
 
         $revolving_fund = RevolvingFund::find($id);
         $revolving_fund->centre_id = $request->centre_id; 
         $revolving_fund->season_id = $request->season_id; 
         $revolving_fund->released_fund = $request->released_fund;
-        $revolving_fund->earning_by_seed_sale_etc = $request->earning_by_seed_sale_etc;
-        $revolving_fund->interest_on_released_fund = $request->interest_on_released_fund;
-        $revolving_fund->total_earning_available = $request->total_earning_available;
-        $revolving_fund->opening_balance = $request->opening_balance;
+        $revolving_fund->description = $request->description;
         $revolving_fund->infrastructure_fund = $request->infrastructure_fund;
         $revolving_fund->utilized_infrastructure_fund = $request->utilized_infrastructure_fund;
-      
+        $revolving_fund->available_infrastructure_fund = $request->available_infrastructure_fund;
+        $revolving_fund->training_organized = $request->training_organized;
+        $revolving_fund->field_day = $request->field_day;
+        $revolving_fund->seed_procurement = $request->seed_procurement;
+        $revolving_fund->seed_quantity = $request->seed_quantity;
+        $revolving_fund->procurement_rate = $request->procurement_rate;
+        $revolving_fund->procurement_amount = $request->procurement_amount;
+        $revolving_fund->farm_operations = $request->farm_operations;
+        $revolving_fund->other_activities = $request->other_activities;
+        $revolving_fund->total_expenditures = $request->total_expenditures;
+        $revolving_fund->seed_sold = $request->seed_sold;
+        $revolving_fund->seed_sold_rate = $request->seed_sold_rate;
+        $revolving_fund->amount_receipt = $request->amount_receipt;
+        $revolving_fund->interest_on_released_fund = $request->interest_on_released_fund;
+        $revolving_fund->total_incomes = $request->total_incomes;
+
+        // $revolving_fund->opening_balance = $request->opening_balance;
+
+        $revolving_fund->opening_balance  = ($request->released_fund - ($request->available_infrastructure_fund + $request->total_incomes) - $request->total_expenditures);
+
         $allocated_fund = RevolvingFundAllocation::where('centre_id',$request->centre_id)->first()->total_fund_allocation;
         $released_fund_sum = RevolvingFund::where('centre_id',$request->centre_id)->sum('released_fund');
         $total_released_fund = $released_fund_sum + $request->released_fund;

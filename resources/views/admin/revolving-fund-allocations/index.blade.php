@@ -33,7 +33,7 @@
                             <th>No</th>
                             <th>Centre Name</th>
                             <th>Season</th>
-                            <th>Total Fund Allocation</th>
+                            <th>Total Fund Allocation (in Lakhs)</th>
                             <th>Created At</th>
                             <th>Action</th>
                         </tr>

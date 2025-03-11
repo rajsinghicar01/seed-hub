@@ -72,6 +72,7 @@ class RevolvingFundAllocationController extends Controller
      */
     public function create()
     {
+
         $centres = Centre::get();
         $seasons = Season::get();
         return view('admin.revolving-fund-allocations.create', compact('centres','seasons'));
@@ -86,13 +87,15 @@ class RevolvingFundAllocationController extends Controller
         $this->validate($request,[
             'centre_id' => 'required|unique:revolving_fund_allocations,centre_id',
             'total_fund_allocation' => 'required|numeric',
-            'season' => 'required'
+            'season' => 'required',
+            'description' => 'required'
         ]);
 
         $fund = new RevolvingFundAllocation();
         $fund->centre_id = $request->centre_id;
         $fund->total_fund_allocation = $request->total_fund_allocation;
         $fund->season_id = $request->season;
+        $fund->description = $request->description;
         $fund->save();
     
         return redirect('admin/revolving-fund-allocations')->with('success','Revolving fund allocated successfully.');
@@ -124,11 +127,20 @@ class RevolvingFundAllocationController extends Controller
     {
         $this->validate($request, [
             'centre_id' => 'required|unique:revolving_fund_allocations,centre_id,'.$id,
-            'total_fund_allocation' => 'required|numeric'
+            'total_fund_allocation' => 'required|numeric',
+            'season' => 'required',
+            'description' => 'required'
         ]);
-    
+
         $fund = RevolvingFundAllocation::find($id);
-        $fund->update($request->all());
+        $fund->centre_id = $request->centre_id;
+        $fund->total_fund_allocation = $request->total_fund_allocation;
+        $fund->season_id = $request->season;
+        $fund->description = $request->description;
+        $fund->update();
+    
+        // $fund = RevolvingFundAllocation::find($id);
+        // $fund->update($request->all());
     
         return redirect()->route('revolving-fund-allocations.index')->with('success','Revolving fund updated successfully');
     }

@@ -15,13 +15,25 @@ class RevolvingFund extends Model
         'centre_id',
         'season_id',
         'released_fund',
-        'earning_by_seed_sale_etc',
-        'interest_on_released_fund',
-        'total_earning_available',
-        'opening_balance',
+        'description',
         'infrastructure_fund',
         'utilized_infrastructure_fund',
-        'available_infrastructure_fund'
+        'available_infrastructure_fund',
+        'training_organized',
+        'field_day',
+        'seed_procurement',
+        'seed_quantity',
+        'procurement_rate',
+        'procurement_amount',
+        'farm_operations',
+        'other_activities',
+        'total_expenditures',
+        'seed_sold',
+        'seed_sold_rate',
+        'amount_receipt',
+        'interest_on_released_fund',
+        'total_incomes',
+        'opening_balance'
     ];
 
     public function centre()
@@ -37,6 +49,6 @@ class RevolvingFund extends Model
     public function RevolvingFundAllocation()
     {
         return $this->belongsTo(RevolvingFundAllocation::class);
-    }
+    } 
 
 }

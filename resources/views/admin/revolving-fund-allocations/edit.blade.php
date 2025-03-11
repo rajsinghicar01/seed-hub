@@ -58,8 +58,14 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Total Fund Allocation:<span class="text-danger">*</span></strong>
+                    <strong>Total Fund Allocation (in Lakhs):<span class="text-danger">*</span></strong>
                     <input type="text" name="total_fund_allocation" placeholder="Total Fund Allocation" value="{{ $fund->total_fund_allocation }}" class="form-control">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Fund Description:<span class="text-danger">*</span></strong>
+                    <input type="text" name="description" placeholder="Fund description" value="{{ $fund->description }}"  class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

@@ -1,8 +1,8 @@
 @extends('admin.layouts.admin-app')
 @section('page_title', 'Reports')
 
-@section('main_headeing', 'Seed Target Report')
-@section('sub_headeing', 'Seed Target Report')
+@section('main_headeing', 'Revolving Fund Report')
+@section('sub_headeing', 'Revolving Fund Report')
 
 @section('content_section')
 
@@ -63,10 +63,8 @@
 
         <div id="printableArea" style="width:100%">
             <div class="col-lg-12 col-12">
-                <h4 class="text-center">ICAR-Directorate of Rapeseed-Mustard Reasearch, Sewer, Bharatpur (Rajasthan)
-                </h4>
-                <h5 class="text-center mt-4">FORMAT FOR COLLECTING INFORMATION ON IMPLEMENTATION OF SEED HUB PROGRAMME
-                    OF OILSEED CROPS</h5>
+                <h4 class="text-center">ICAR-Directorate of Rapeseed-Mustard Reasearch, Sewer, Bharatpur (Rajasthan)</h4>
+                <h5 class="text-center mt-4">FORMAT FOR COLLECTING INFORMATION ON IMPLEMENTATION OF SEED HUB PROGRAMME OF OILSEED CROPS</h5>
                 <h5 class="text-center mb-5"><u>1. UTILIZATION OF REVOLVING FUND</u></h5>
             </div>
 
@@ -103,7 +101,7 @@
                     </tbody>
                 </table>
 
-                <p><strong>I) Revolving fund release status </strong></p>
+                <p><strong>I) Revolving fund status during</strong></p>
                 <p><strong>A) 2022-23-Final </strong></p>
                 <table class="table table-bordered table-striped text-center">
                     <tbody>

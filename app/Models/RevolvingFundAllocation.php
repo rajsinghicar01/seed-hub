@@ -13,7 +13,9 @@ class RevolvingFundAllocation extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'centre_id',
-        'total_fund_allocation'
+        'total_fund_allocation',
+        'season',
+        'description'
     ];
 
     public function centre()

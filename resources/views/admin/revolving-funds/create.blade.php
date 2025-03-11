@@ -40,7 +40,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="card card-outline card-primary">
                     <div class="card-header">
-                        <h5 class="card-title m-0">Revolving Fund Status</h5>
+                        <h5 class="card-title m-0">Revolving Fund Status <small class="text-danger">(Fill up by Admin)</small></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -75,6 +75,18 @@
                                     <strong>Released Fund (in Lakhs):<span class="text-danger">*</span></strong>
                                     <input type="text" name="released_fund" placeholder="Released Fund"
                                         class="form-control" value="{{ old('released_fund') }}">
+                                </div>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <strong>Description:<span class="text-danger">*</span></strong>
+                                    <input type="text" name="description" placeholder="Enter description" class="form-control" value="{{ old('description') }}">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <strong>Opening Balance:<span class="text-danger">*</span></strong>
+                                    <input type="text" name="opening_balance" placeholder="Enter opening balance" class="form-control" value="{{ old('opening_balance') }}">
                                 </div>
                             </div>
                         </div>
@@ -151,6 +163,12 @@
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
+                                    <strong>Seed Procurement Amount (Rs):<span class="text-danger">*</span></strong>
+                                    <input type="text" name="procurement_amount" id="procurement_amount" placeholder="Procurement Amount (Rs)" class="form-control" value="{{ old('procurement_amount') }}">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="form-group">
                                     <strong>Farm Operations (Rs):<span class="text-danger">*</span></strong>
                                     <input type="text" name="farm_operations" placeholder="Farm Operations (Rs)" class="form-control" value="{{ old('farm_operations') }}">
                                 </div>
@@ -159,6 +177,12 @@
                                 <div class="form-group">
                                     <strong>Other Activities (Rs):<span class="text-danger">*</span></strong>
                                     <input type="text" name="other_activities" placeholder="Other Activities (Rs)" class="form-control" value="{{ old('other_activities') }}">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <strong>Total Expenditures (Rs):<span class="text-danger">*</span></strong>
+                                    <input type="text" name="total_expenditures" placeholder="Total Expenditures (Rs)" class="form-control" value="{{ old('total_expenditures') }}">
                                 </div>
                             </div>
                         </div>
@@ -173,28 +197,34 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <strong>Seed Sold (Qtl):<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_sold" placeholder="Seed Sold (Qtl)" class="form-control" value="{{ old('seed_sold') }}">
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <strong>Rate (Rs):<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_sold_rate" placeholder="Seed Sold Rate" class="form-control" value="{{ old('seed_sold_rate') }}">
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <strong>Amount Receipt (in Lakhs):<span class="text-danger">*</span></strong>
                                     <input type="text" name="amount_receipt" placeholder="Amount Receipt (in Lakhs)" class="form-control" value="{{ old('amount_receipt') }}">
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <strong>Interest on Released Fund (in Lakhs):<span class="text-danger">*</span></strong>
                                     <input type="text" name="interest_on_released_fund" placeholder="Interest on Released Fund (in Lakhs)" class="form-control" value="{{ old('interest_on_released_fund') }}">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <strong>Total Incomes (in Lakhs):<span class="text-danger">*</span></strong>
+                                    <input type="text" name="total_incomes" placeholder="Total Incomes (in Lakhs)" class="form-control" value="{{ old('total_incomes') }}">
                                 </div>
                             </div>
                         </div>
