@@ -2,6 +2,7 @@
    
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\SiteSetting;
   
 /**
  * Write code on Method
@@ -63,5 +64,13 @@ if(! function_exists('get_user_by_id')) {
     function get_user_by_id($id){
         $user = User::find($id);
         return $user;
+    }
+}
+
+
+if (!function_exists('getSetting')) {
+    function getSetting($key, $default = null)
+    {
+        return SiteSetting::where('key', $key)->value('value') ?? $default;
     }
 }

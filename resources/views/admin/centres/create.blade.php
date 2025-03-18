@@ -32,13 +32,13 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Centre Name:<span class="text-danger">*</span></strong>
-                    <input type="text" name="centre_name" placeholder="Centre Name" class="form-control">
+                    <input type="text" name="centre_name" placeholder="Centre Name" value="{{ old('centre_name') }}" class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Centre Address:<span class="text-danger">*</span></strong>
-                    <input type="text" name="centre_address" placeholder="Centre address" class="form-control">
+                    <input type="text" name="centre_address" value="{{ old('centre_address') }}" placeholder="Centre address" class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -65,7 +65,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Pincode:<span class="text-danger">*</span></strong>
-                    <input type="text" name="pincode" placeholder="Pincode" class="form-control">
+                    <input type="text" name="pincode" placeholder="Pincode" value="{{ old('pincode') }}" class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

@@ -139,19 +139,13 @@
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
-                                    <strong>Seed Procurement (in Lakhs):<span class="text-danger">*</span></strong>
-                                    <input type="text" name="seed_procurement" id="seed_procurement" placeholder="Seed Procurement (Rs)" class="form-control" value="{{ $revolving_fund->seed_procurement }}">
-                                </div>
-                            </div>
-                            <div class="col-xs-4 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <strong>Seed Quantity:<span class="text-danger">*</span></strong>
+                                    <strong>Procurement Seed Quantity (Qtl):<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_quantity" id="seed_quantity" placeholder="Seed Quantity" class="form-control" value="{{ $revolving_fund->seed_quantity }}">
                                 </div>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
-                                    <strong>Seed Procurement Rate (in Lakhs):<span class="text-danger">*</span></strong>
+                                    <strong>Seed Procurement Rate (Rs/qtl):<span class="text-danger">*</span></strong>
                                     <input type="text" name="procurement_rate" id="procurement_rate" placeholder="Procurement Rate (Rs)" class="form-control" value="{{ $revolving_fund->procurement_rate }}">
                                 </div>
                             </div>
@@ -159,6 +153,12 @@
                                 <div class="form-group">
                                     <strong>Seed Procurement Amount (in Lakhs):<span class="text-danger">*</span></strong>
                                     <input type="text" name="procurement_amount" id="procurement_amount" placeholder="Procurement Amount (Rs)" class="form-control" value="{{ $revolving_fund->procurement_amount }}">
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <strong>Number of Growers Involved:<span class="text-danger">*</span></strong>
+                                    <input type="text" name="number_of_growers_involved" id="number_of_growers_involved" placeholder="Seed Procurement (Rs)" class="form-control" value="{{ $revolving_fund->number_of_growers_involved }}">
                                 </div>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
@@ -199,7 +199,7 @@
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
-                                    <strong>Rate (in Lakhs):<span class="text-danger">*</span></strong>
+                                    <strong>Rate (Rs/qtl):<span class="text-danger">*</span></strong>
                                     <input type="text" name="seed_sold_rate" id="seed_sold_rate" placeholder="Seed Sold Rate" class="form-control" value="{{ $revolving_fund->seed_sold_rate }}">
                                 </div>
                             </div>
@@ -254,16 +254,15 @@ $("#seed_quantity, #procurement_rate").keyup(function() {
 });
 
 // calculate total Expenditures
-$("#training_organized, #field_day, #seed_procurement, #farm_operations, #other_activities, #seed_quantity, #procurement_rate").keyup(function() {
+$("#training_organized, #field_day, #farm_operations, #other_activities, #seed_quantity, #procurement_rate").keyup(function() {
     
     if($('#training_organized').val() == ''){ var training_organized = parseInt(0); }else{ var training_organized = parseInt($('#training_organized').val()); }
     if($('#field_day').val() == ''){ var field_day = parseInt(0); }else{ var field_day = parseInt($('#field_day').val()); }
-    if($('#seed_procurement').val() == ''){ var seed_procurement = parseInt(0); }else{ var seed_procurement = parseInt($('#seed_procurement').val()); }
     if($('#farm_operations').val() == ''){ var farm_operations = parseInt(0); }else{ var farm_operations = parseInt($('#farm_operations').val()); }
     if($('#other_activities').val() == ''){ var other_activities = parseInt(0); }else{ var other_activities = parseInt($('#other_activities').val()); }
     if($('#procurement_amount').val() == ''){ var procurement_amount = parseInt(0); }else{ var procurement_amount = parseInt($('#procurement_amount').val()); }
 
-    var total_expenditures = parseInt(training_organized+field_day+seed_procurement+farm_operations+other_activities+procurement_amount);
+    var total_expenditures = parseInt(training_organized+field_day+farm_operations+other_activities+procurement_amount);
     $('#total_expenditures').val(total_expenditures);
 });
 

@@ -81,7 +81,7 @@ class StateController extends Controller
     {
         $this->validate($request,[
             'zone_id' => 'required',
-            'state_name' => 'required|unique:states,state_name'
+            'state_name' => 'required'
         ]);
 
         $state = new State();

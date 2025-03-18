@@ -24,12 +24,11 @@
 <section id="contact" class="contact section">
 
     <div class="mb-5">
-
-        <iframe style="width: 100%; height: 400px;"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1774.3154954173078!2d77.45551233886859!3d27.199332379735832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3973a497309adac7%3A0xf5170417c7c485dc!2sJyoti%20Nagar%2C%20Sugreev%20Colony%2C%20Jail%20Area%2C%20Sewar%2C%20Bharatpur%2C%20Rajasthan%20321303!5e0!3m2!1sen!2sin!4v1736328054586!5m2!1sen!2sin"
-            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3548.6654339274664!2d77.45464987612861!3d27.198250247760235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3973a49715589265%3A0xe2f6592943c9e7ad!2sICAR-Indian%20Institute%20Of%20Rapeseed%20Mustard%20Research!5e0!3m2!1sen!2sin!4v1741762762902!5m2!1sen!2sin"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div><!-- End Google Maps -->
+    </div>
 
     <div class="container" data-aos="fade">
 
@@ -46,7 +45,8 @@
                         <i class="bi bi-geo-alt flex-shrink-0"></i>
                         <div>
                             <h4>Location:</h4>
-                            <p> Jyoti Nagar, Jail Area, Sewar, Bharatpur, Rajasthan 321303</p>
+                            <p><strong>{{ getSetting('site_name') }}</strong></p>
+                            <p>{{ getSetting('site_address') }}</p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -54,7 +54,7 @@
                         <i class="bi bi-envelope flex-shrink-0"></i>
                         <div>
                             <h4>Email:</h4>
-                            <p>info@example.com</p>
+                            <p>{{ getSetting('site_email') }}</p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -62,7 +62,7 @@
                         <i class="bi bi-phone flex-shrink-0"></i>
                         <div>
                             <h4>Call:</h4>
-                            <p>+1 5589 55488 55</p>
+                            <p>{{ getSetting('site_phone') }}</p>
                         </div>
                     </div><!-- End Info Item -->
 

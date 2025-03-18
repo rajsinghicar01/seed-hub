@@ -428,7 +428,7 @@
                 <li class="nav-item {{ Request::segment(2) == 'settings' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'settings' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>
-                        <p>Settings <i class="right fas fa-angle-left"></i></p>
+                        <p>Site Settings <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -436,12 +436,6 @@
                                 class="nav-link {{ Route::current()->getName() == 'settings.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Settings</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tags</p>
                             </a>
                         </li>
                     </ul>

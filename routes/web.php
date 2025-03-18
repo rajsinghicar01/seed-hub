@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\RevolvingFundController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RevolvingFundAllocationController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\SeedAvailabilityController;
 
@@ -85,6 +86,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::get('add-more', [ProductController::class, 'index']);
     Route::post('add-more', [ProductController::class, 'store'])->name('add-more.store');
+
+    Route::get('settings', [SiteSettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [SiteSettingController::class, 'update'])->name('settings.update');
     
     // Route::get('/profile', function (Request $request) {
     //     return 'profile will be here...';

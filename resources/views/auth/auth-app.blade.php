@@ -13,7 +13,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/') }}">{{ str_replace('_', ' ', config('app.name')) }}</a>
+            <a href="{{ url('/') }}">{{ getSetting('site_name') }}</a>
         </div>
         <div class="card">
             <div class="card-body login-card-body">
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    <br><p>All rights reserved © {{ date('Y') }} {{ str_replace('_', ' ', config('app.name')) }}</p>
+    <br><p>All rights reserved © {{ date('Y') }} {{ getSetting('site_name') }}</p>
 </body>
 </html>
 <script src="{{ asset('admin-assets/plugins/jquery/jquery.min.js') }}"></script>

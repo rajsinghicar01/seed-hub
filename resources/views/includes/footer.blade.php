@@ -9,10 +9,10 @@
                         <img src="{{ asset('assets/img/seed_hub_logo.png') }}" alt="{{ str_replace('_',' ',config('app.name')) }} Logo">
                     </a>
                     <div class="footer-contact pt-3">
-                        <p>A108 Adam Street</p>
-                        <p>New York, NY 535022</p>
-                        <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                        <p><strong>Email:</strong> <span>info@example.com</span></p>
+                        <p>{{ getSetting('site_name') }}</p>
+                        <p>{{ getSetting('site_address') }}</p>
+                        <p class="mt-3"><strong>Phone:</strong> <span>{{ getSetting('site_phone') }}</span></p>
+                        <p><strong>Email:</strong> <span>{{ getSetting('site_email') }}</span></p>
                     </div>
                 </div>
 
@@ -70,7 +70,7 @@
 
             <div class="d-flex flex-column align-items-center align-items-lg-start">
                 <div>
-                    © Copyright <strong><span>{{ str_replace('_',' ',config('app.name')) }}</span></strong>. All Rights Reserved
+                    © Copyright <strong><span>{{ getSetting('site_name') }}</span></strong>. All Rights Reserved
                 </div>
                 <!-- <div class="credits">
                     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>

@@ -145,7 +145,7 @@ class RevolvingFundController extends Controller
                 "available_infrastructure_fund" => $request->available_infrastructure_fund,
                 "training_organized" => $request->training_organized,
                 "field_day" => $request->field_day,
-                "seed_procurement" => $request->seed_procurement,
+                "number_of_growers_involved" => $request->number_of_growers_involved,
                 "seed_quantity" => $request->seed_quantity,
                 "procurement_rate" => $request->procurement_rate,
                 "procurement_amount" => $request->procurement_amount,
@@ -208,7 +208,7 @@ class RevolvingFundController extends Controller
             "available_infrastructure_fund" => "numeric",
             "training_organized" => "numeric",
             "field_day" => "numeric",
-            "seed_procurement" => "numeric",
+            // "number_of_growers_involved" => "numeric",
             "seed_quantity" => "numeric",
             "procurement_rate" => "numeric",
             "farm_operations" => "numeric",
@@ -219,7 +219,7 @@ class RevolvingFundController extends Controller
             "amount_receipt" => "numeric",
             "interest_on_released_fund" => "numeric",
             "total_incomes" => "numeric",
-            "opening_balance" => "numeric"
+            // "opening_balance" => "numeric"
         ]);
 
         $revolving_fund = RevolvingFund::find($id);
@@ -232,7 +232,7 @@ class RevolvingFundController extends Controller
         $revolving_fund->available_infrastructure_fund = $request->available_infrastructure_fund;
         $revolving_fund->training_organized = $request->training_organized;
         $revolving_fund->field_day = $request->field_day;
-        $revolving_fund->seed_procurement = $request->seed_procurement;
+        $revolving_fund->number_of_growers_involved = $request->number_of_growers_involved;
         $revolving_fund->seed_quantity = $request->seed_quantity;
         $revolving_fund->procurement_rate = $request->procurement_rate;
         $revolving_fund->procurement_amount = $request->procurement_amount;

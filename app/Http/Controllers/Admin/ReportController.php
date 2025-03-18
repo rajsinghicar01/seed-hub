@@ -54,42 +54,15 @@ class ReportController extends Controller
         $centres = Centre::get();
         $seasons = Season::get();
 
-        // $allocations = RevolvingFundAllocation::all();
-        // $funds = RevolvingFund::all();
-
-        // $allocationWisefunds = [];
-
-        // foreach ($allocations as $allocation) {
-
-        //     $allocationWisefunds['allocations'][] = [
-        //         'centre' =>  $allocation->centre->centre_name,
-        //         'season' => $allocation->season->name,
-        //         'allocate_fund'=> $allocation->total_fund_allocation
-        //     ];
-
-        //     foreach ($funds as $fund) {
-        //         if ($fund->centre_id == $allocation->centre_id) {
-        //             $allocationWisefunds['allocations']['funds'] = $fund;
-        //         }
-        //     }
-        // }
-
-        // return $allocationWisefunds;
-
-
-        $makes = DB::table('centres')
-        ->select(
-                'centres.*',
-                'allocations.*',
-                'funds.*'
-            )
-        ->leftJoin('revolving_fund_allocations as allocations', 'allocations.centre_id', '=', 'centres.id')
-        ->leftJoin('revolving_funds as funds', 'funds.centre_id', '=', 'centres.id')
-        ->get();
-
-        // return $makes;
-
-        return view('admin.reports.revolving-fund-reports', compact('centres','seasons'));
+        $allocations = RevolvingFundAllocation::get();
+        if ($request->centre_id) {
+            $allocations = $allocations->where('centre_id', $request->centre_id);
+        }
+        if ($request->season_id) {
+            $allocations = $allocations->where('season_id', $request->season_id);
+        }
+   
+        return view('admin.reports.revolving-fund-reports', compact('centres','seasons','allocations'));
     }
 
     

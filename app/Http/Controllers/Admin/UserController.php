@@ -36,7 +36,13 @@ class UserController extends Controller
         
         if ($request->ajax()) {
 
-            $users = User::with('roles')->get();
+            // $users = User::with('roles')->get();
+            $users = User::whereDoesntHave(
+                'roles',
+                function ($q) {
+                    $q->where('name', 'Admin');
+                }
+            )->get();
                 
             return Datatables::of($users)
                     ->addIndexColumn()
@@ -118,7 +124,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'phone' => 'numeric|digits:10||unique:users,phone',
-            'designation_id' => 'numeric',
+            // 'designation_id' => 'numeric',
             'pincode' => 'numeric|digits:6',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'required|same:confirm-password',
@@ -178,7 +184,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'phone' => 'numeric|digits:10||unique:users,phone,'.$id,
-            'designation_id' => 'numeric',
+            // 'designation_id' => 'numeric',
             'pincode' => 'numeric|digits:6',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'same:confirm-password',
