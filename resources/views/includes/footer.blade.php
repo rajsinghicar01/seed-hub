@@ -11,52 +11,40 @@
                     <div class="footer-contact pt-3">
                         <p>{{ getSetting('site_name') }}</p>
                         <p>{{ getSetting('site_address') }}</p>
-                        <p class="mt-3"><strong>Phone:</strong> <span>{{ getSetting('site_phone') }}</span></p>
-                        <p><strong>Email:</strong> <span>{{ getSetting('site_email') }}</span></p>
+                        <p class="mt-3"><strong>Phone:</strong> <span><a href="tel:{{ getSetting('site_phone') }}">{{ getSetting('site_phone') }}</a></span></p>
+                        <p><strong>Email:</strong> <span><a href="mailto:{{ getSetting('site_email') }}">{{ getSetting('site_email') }}</a></span></p>
                     </div>
                 </div>
 
-                <div class="col-lg-2 col-md-3 footer-links">
+                <div class="col-lg-3 col-md-3 footer-links">
                     <h4>Useful Links</h4>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Terms of service</a></li>
-                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="{{ url('/') }}">Home</a></li>
+                        <li><a href="{{ route('about') }}">About us</a></li>
+                        <li><a href="{{ route('centres') }}">Seed Production Centre</a></li>
+                        <li><a href="{{ route('seed-availability') }}">Seed Availability</a></li>
+                        <li><a href="{{ route('varieties-in-seed-chain') }}">Varieties in Seed Chain</a></li>
                     </ul>
                 </div>
 
-                <div class="col-lg-2 col-md-3 footer-links">
+                <div class="col-lg-3 col-md-5 footer-links">
                     <h4>Our Services</h4>
                     <ul>
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">Product Management</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Graphic Design</a></li>
+                        <li><a href="{{ route('services') }}#breeder-seed-production">Breeder Seed Production</a></li>
+                        <li><a href="{{ route('services') }}#certified-seed-production">Certified Seed Production</a></li>
+                        <li><a href="{{ route('services') }}#foundation-seed-production">Foundation Seed Production</a></li>
+                        <li><a href="{{ route('services') }}#seed-marketing">Seed Marketing</a></li>
                     </ul>
                 </div>
 
-                <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Hic solutasetp</h4>
+                <div class="col-lg-2 col-md-2 footer-links">
+                    <h4>Imported Links</h4>
                     <ul>
-                        <li><a href="#">Molestiae accusamus iure</a></li>
-                        <li><a href="#">Excepturi dignissimos</a></li>
-                        <li><a href="#">Suscipit distinctio</a></li>
-                        <li><a href="#">Dilecta</a></li>
-                        <li><a href="#">Sit quas consectetur</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Nobis illum</h4>
-                    <ul>
-                        <li><a href="#">Ipsam</a></li>
-                        <li><a href="#">Laudantium dolorum</a></li>
-                        <li><a href="#">Dinera</a></li>
-                        <li><a href="#">Trodelas</a></li>
-                        <li><a href="#">Flexo</a></li>
+                        <li><a href="https://mail.icar.gov.in/" target="_blank">ICAR-Unified Communications</a></li>
+                        <li><a href="http://misfms.icar.gov.in/" target="_blank">FMS/MIS of ICAR</a></li>
+                        <li><a href="http://icarerp.iasri.res.in" target="_blank">ICAR-ERP System</a></li>
+                        <li><a href="http://hypm.iasri.res.in/" target="_blank">HYPM</a></li>
+                        <li><a href="https://krishi.icar.gov.in/" target="_blank">ICAR-KRISHI</a></li>
                     </ul>
                 </div>
 
@@ -78,10 +66,10 @@
             </div>
 
             <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
+                <a href="javascript::void();"><i class="bi bi-twitter-x"></i></a>
+                <a href="javascript::void();"><i class="bi bi-facebook"></i></a>
+                <a href="javascript::void();"><i class="bi bi-instagram"></i></a>
+                <a href="javascript::void();"><i class="bi bi-linkedin"></i></a>
             </div>
 
         </div>
@@ -98,7 +86,7 @@
 
 <!-- Vendor JS Files -->
 <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+<!-- <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> -->
 <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
 <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>

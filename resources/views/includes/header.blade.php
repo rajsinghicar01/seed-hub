@@ -9,18 +9,19 @@
 
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a href="{{ url('/') }}" class="active">Home</a></li>
-                <li><a href="{{ route('about') }}">About Us</a></li>
-                <li class="dropdown"><a href="#"><span>Seed Production Centre</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <li><a href="{{ url('/') }}" class="{{ Request::segment(1) == '' ? 'active' : '' }}">Home</a></li>
+                <li><a href="{{ route('about') }}" class="{{ Request::segment(1) == 'about-us' ? 'active' : '' }}">About Us</a></li>
+                <li><a href="{{ route('centres') }}"  class="{{ Request::segment(1) == 'seed-production-centre' ? 'active' : '' }}">Seed Production Centre</a></li>
+                <!-- <li class="dropdown"><a href="#"><span>Seed Production Centre</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li><a href="#">Certified Seed</a></li>
                         <li><a href="#">Breeder Seed</a></li>
                     </ul>
-                </li>
-                <li><a href="{{ route('seed-availability') }}">Seed Availability</a></li>
-                <li><a href="{{ route('home') }}#services">Our Services</a></li>
-                <li><a href="javascript::void();">Varieties in Seed Chain</a></li>
-                <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                </li> -->
+                <li><a href="{{ route('seed-availability') }}" class="{{ Request::segment(1) == 'seed-availability' ? 'active' : '' }}">Seed Availability</a></li>
+                <li><a href="{{ route('services') }}" class="{{ Request::segment(1) == 'services' ? 'active' : '' }}">Our Services</a></li>
+                <li><a href="{{ route('varieties-in-seed-chain') }}" class="{{ Request::segment(1) == 'varieties-in-seed-chain' ? 'active' : '' }}">Varieties in Seed Chain</a></li>
+                <li><a href="{{ route('contact') }}" class="{{ Request::segment(1) == 'contact-us' ? 'active' : '' }}">Contact Us</a></li>
                 @if (Route::has('login'))
                 @auth
                 <li><button onclick="window.location='{{ route('dashboard') }}'" class="btn btn-success"><i

@@ -53,7 +53,7 @@
                     <strong>Year of Notification:<span class="text-danger">*</span></strong>
                     <select name="year_of_notification" class="form-control">
                         <option value="">Choose Year of Notification</option>
-                        @for ($year=2020; $year<=date('Y'); $year++) <option value="{{$year}}">{{$year}}</option>
+                        @for ($year=1950; $year<=date('Y'); $year++) <option value="{{$year}}">{{$year}}</option>
                             @endfor
                     </select>
                 </div>

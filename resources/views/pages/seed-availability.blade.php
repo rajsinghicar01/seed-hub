@@ -8,8 +8,7 @@
     style="background-image: url({{ asset('assets/img/mustard_page_banner.jpg') }});">
     <div class="container position-relative">
         <h1>Seed Availability: Seed Hub</h1>
-        <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
-            molestias.</p>
+        <p>The primary goal is to make high-quality seeds readily available to farmers in their local areas. </p>
         <nav class="breadcrumbs">
             <ol>
                 <li><a href="{{ route('home') }}">Home</a></li>
@@ -20,10 +19,10 @@
 </div>
 
 <section id="services" class="services section">
-    <div class="container section-title" data-aos="fade-up">
+    <!-- <div class="container section-title" data-aos="fade-up">
         <h2>SERVICES</h2>
         <p>Providing Fresh Produce Every Single Day</p>
-    </div>
+    </div> -->
     <div class="content">
         <div class="container">
 

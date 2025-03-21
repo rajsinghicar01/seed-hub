@@ -26,17 +26,35 @@ use App\Http\Controllers\Admin\RevolvingFundAllocationController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\SeedAvailabilityController;
+use App\Http\Controllers\VarietyChainController;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+use App\Models\Centre;
+use App\Models\Variety;
 
 // Auth::routes();
 Auth::routes(['verify' => true]);
   
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::post('/sendInquiryEmail', [HomeController::class, 'sendInquiryEmail'])->name('sendInquiryEmail');
+
 Route::get('/about-us', function(){
     return view('pages.about');
 })->name('about');
+
+Route::get('/services', function(){
+    return view('pages.services');
+})->name('services');
+
+Route::get('/seed-production-centre', function(){
+    $centres = Centre::with('zone','state','user')->get();
+    return view('pages.seed-production-centre',compact('centres'));
+})->name('centres');
+
+Route::get('/varieties-in-seed-chain', [VarietyChainController::class, 'index'])->name('varieties-in-seed-chain');
 
 Route::get('/contact-us', function(){
     return view('pages.contact');

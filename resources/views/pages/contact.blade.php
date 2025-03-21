@@ -9,8 +9,7 @@
     style="background-image: url({{ asset('assets/img/mustard_page_banner.jpg') }});">
     <div class="container position-relative">
         <h1>Contact Us</h1>
-        <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
-            molestias.</p>
+        <p>The primary goal is to make high-quality seeds readily available to farmers in their local areas. </p>
         <nav class="breadcrumbs">
             <ol>
                 <li><a href="{{ route('home') }}">Home</a></li>
@@ -25,7 +24,7 @@
 
     <div class="mb-5">
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3548.6654339274664!2d77.45464987612861!3d27.198250247760235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3973a49715589265%3A0xe2f6592943c9e7ad!2sICAR-Indian%20Institute%20Of%20Rapeseed%20Mustard%20Research!5e0!3m2!1sen!2sin!4v1741762762902!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3548.655062607297!2d77.45453912612867!3d27.198576097746134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3973a49715589265%3A0xe2f6592943c9e7ad!2sICAR-Indian%20Institute%20Of%20Rapeseed%20Mustard%20Research!5e0!3m2!1sen!2sin!4v1742468248557!5m2!1sen!2sin"
             width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
@@ -54,7 +53,7 @@
                         <i class="bi bi-envelope flex-shrink-0"></i>
                         <div>
                             <h4>Email:</h4>
-                            <p>{{ getSetting('site_email') }}</p>
+                            <p><a href="mailto:{{ getSetting('site_email') }}">{{ getSetting('site_email') }}</a></p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -62,7 +61,7 @@
                         <i class="bi bi-phone flex-shrink-0"></i>
                         <div>
                             <h4>Call:</h4>
-                            <p>{{ getSetting('site_phone') }}</p>
+                            <p><a href="tel:{{ getSetting('site_phone') }}">{{ getSetting('site_phone') }}</a></p>
                         </div>
                     </div><!-- End Info Item -->
 
@@ -71,38 +70,50 @@
             </div>
 
             <div class="col-lg-8">
-                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success! </strong> {{ $message }}
+                </div>
+                @endif
+
+                @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> Something went wrong.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <form method="POST" action="{{ route('sendInquiryEmail') }}" class="php-email-form">
+                    @csrf
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
-                                required="">
+                            <input type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Your Name">
                         </div>
                         <div class="col-md-6 form-group mt-3 mt-md-0">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
-                                required="">
+                            <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your Email">
                         </div>
                     </div>
                     <div class="form-group mt-3">
-                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
-                            required="">
+                        <input type="text" class="form-control" name="subject" value="{{ old('subject') }}" placeholder="Subject">
                     </div>
                     <div class="form-group mt-3">
-                        <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>
-                    </div>
-                    <div class="my-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                        <textarea class="form-control" name="message" placeholder="Message">{{ old('message') }}</textarea>
                     </div>
                     <div class="text-center"><button type="submit">Send Message</button></div>
                 </form>
-            </div><!-- End Contact Form -->
+            </div>
 
         </div>
 
     </div>
 
-</section><!-- /Contact Section -->
+</section>
 
 
 

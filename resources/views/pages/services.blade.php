@@ -1,93 +1,24 @@
 @extends('layouts.default')
-@section('page_title', 'ICAR-Indian Institute of Pulses Research')
-@section('description', 'Home Page description')
-@section('keywords', 'Home Page keywords')
+@section('page_title', 'Our Services')
+@section('description', 'Our Services')
+@section('keywords', 'Our Services')
 @section('content')
 
-<!-- Hero Section -->
-<section id="hero" class="hero section dark-background">
-
-    <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
-
-        <div class="carousel-item active">
-            <img src="{{ asset('assets/img/slider-1.jpg') }}" alt="">
-            <div class="carousel-container">
-                <h2>Creation of Rapeseed-Mustard Seed Hub Portal</h2>
-                <p class="text-center">Seed hubs portal is digital initiative to facilitate data collection, analysis,
-                    and retrieval of
-                    information related to seed production. </p>
-            </div>
-        </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-            <img src="{{ asset('assets/img/slider-2.jpg') }}" alt="">
-            <div class="carousel-container">
-                <h2>Quality Seed Production & Management</h2>
-                <p class="text-center">Seed hubs, established by the Indian government, aim to ensure the local
-                    availability of quality
-                    seeds by focusing on seed production, storage, processing, certification, and marketing.</p>
-            </div>
-        </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-            <img src="{{ asset('assets/img/slider-3.jpg') }}" alt="">
-            <div class="carousel-container">
-                <h2>Participatory Seed Production</h2>
-                <p class="text-center">It involves farmers, scientists, extension workers, and other actors working
-                    together throughout the
-                    seed production process, from variety selection to seed processing and distribution</p>
-            </div>
-        </div><!-- End Carousel Item -->
-
-        <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-        </a>
-
-        <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-        </a>
-
-        <ol class="carousel-indicators"></ol>
-
+<!-- Page Title -->
+<div class="page-title dark-background" data-aos="fade"
+    style="background-image: url({{ asset('assets/img/mustard_page_banner.jpg') }});">
+    <div class="container position-relative">
+        <h1>Our Services</h1>
+        <p>The primary goal is to make high-quality seeds readily available to farmers in their local areas. </p>
+        <nav class="breadcrumbs">
+            <ol>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li class="current">Our Services</li>
+            </ol>
+        </nav>
     </div>
+</div><!-- End Page Title -->
 
-</section><!-- /Hero Section -->
-
-<!-- About 3 Section -->
-<section id="about-3" class="about-3 section">
-
-    <div class="container">
-        <div class="row gy-4 justify-content-between align-items-center">
-            <div class="col-lg-6 order-lg-2 position-relative" data-aos="zoom-out">
-                <img src="{{ asset('assets/img/about-us.jpg') }}" alt="Image" class="img-fluid">
-                <!-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn">
-                    <span class="play"><i class="bi bi-play-fill"></i></span>
-                </a> -->
-            </div>
-            <div class="col-lg-5 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-                <h2 class="content-title mb-4">About {{ getSetting('site_name') }}</h2>
-                <p class="mb-4">
-                    Seed Hubs is a strategic initiative, with the goal of ensuring the availability of high-quality
-                    seeds locally, boosting productivity, and supporting farmers. Seed hub is being proven as vehicle
-                    for faster seed replacement and an effective means for seed extension especially in Rapeseed-Mustard
-                </p>
-
-                <ul class="list-unstyled list-check">
-                    <li>Seed Hubs aim to increase the production and availability of quality seeds, particularly for
-                        rapeseed-mustard, to enhance productivity. </li>
-                    <li>Seed Hubs encompass various activities, including seed production, storage, processing,
-                        certification, and marketing</li>
-                    <li>Seed Hubs focus on producing seeds that meet stringent quality standards, including genetic
-                        purity and germination rates</li>
-                    <li>Seed Hubs can contribute to increased productivity, higher yields, and improved income for
-                        farmers by ensuring access to quality seeds</li>
-                </ul>
-
-                <p><a href="{{ route('contact') }}" class="btn-cta">Get in touch</a></p>
-            </div>
-        </div>
-    </div>
-</section><!-- /About 3 Section -->
 
 
 <!-- Services Section -->
@@ -101,8 +32,8 @@
     <div class="content">
         <div class="container">
             <div class="row g-0">
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-item">
+                <div class="col-lg-12 col-md-12">
+                    <div class="service-item" id="breeder-seed-production">
                         <span class="number">01</span>
                         <div class="service-item-icon">
                             <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -119,21 +50,21 @@
                                 </g>
                             </svg> -->
 
-                            <img src="{{ asset('assets/img/breeder-seed-production.png') }}" class="img-responsive" style="width:80px;">
+                            <img src="{{ asset('assets/img/breeder-seed-production.png') }}" class="img-responsive"
+                                style="width:80px;">
                         </div>
                         <div class="service-item-content">
                             <h3 class="service-heading">Breeder Seed Production</h3>
                             <p>
-                                {{ substr('Produced the highest quality, genetically pure seed material, directly controlled by the
+                                Produced the highest quality, genetically pure seed material, directly controlled by the
                                 originating or sponsoring plant breeder, which serves as the basis for producing
-                                foundation and certified seeds.', 0, 100) }}...
+                                foundation and certified seeds.
                             </p>
-                            <a href="{{ route('services') }}#breeder-seed-production">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-item">
+                <div class="col-lg-12 col-md-12">
+                    <div class="service-item" id="certified-seed-production">
                         <span class="number">02</span>
                         <div class="service-item-icon">
                             <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -155,21 +86,21 @@
                                     </path>
                                 </g>
                             </svg> -->
-                            <img src="{{ asset('assets/img/certified-seed-production.png') }}" class="img-responsive" style="width:80px;">
+                            <img src="{{ asset('assets/img/certified-seed-production.png') }}" class="img-responsive"
+                                style="width:80px;">
                         </div>
                         <div class="service-item-content">
-                            <h3 class="service-heading">Certified Seed Production </h3>
+                            <h3 class="service-heading">Certified Seed Production</h3>
                             <p>
-                                {{ substr('Seed produced under strict standards to maintain varietal purity and quality, ensuring
+                                Seed produced under strict standards to maintain varietal purity and quality, ensuring
                                 they meet specific requirements for germination, weed seeds, and other factors, and are
-                                free from prohibited noxious weed seeds.', 0, 100) }}...
+                                free from prohibited noxious weed seeds.
                             </p>
-                            <a href="{{ route('services') }}#certified-seed-production">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-item">
+                <div class="col-lg-12 col-md-12">
+                    <div class="service-item" id="foundation-seed-production">
                         <span class="number">03</span>
                         <div class="service-item-icon">
                             <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -191,22 +122,22 @@
                                     </path>
                                 </g>
                             </svg> -->
-                            <img src="{{ asset('assets/img/foundation-seed-production.png') }}" class="img-responsive" style="width:80px;">
+                            <img src="{{ asset('assets/img/foundation-seed-production.png') }}" class="img-responsive"
+                                style="width:80px;">
                         </div>
                         <div class="service-item-content">
                             <h3 class="service-heading">Foundation Seed Production</h3>
                             <p>
-                                {{ substr('Production of seed from breeder seed under strict supervision by certification agencies
+                                Production of seed from breeder seed under strict supervision by certification agencies
                                 to maintain genetic purity and identity, serving as the source for all other certified
-                                seed classes.', 0, 100) }}...
+                                seed classes.
                             </p>
-                            <a href="{{ route('services') }}#foundation-seed-production">Read More</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-item">
+                <div class="col-lg-12 col-md-12">
+                    <div class="service-item" id="seed-marketing">
                         <span class="number">04</span>
                         <div class="service-item-icon">
                             <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -229,16 +160,16 @@
                                 </g>
                             </svg> -->
                             <!-- <img src="{{ asset('assets/img/seed-marketing.png') }}" class="img-responsive" style="width:80px;"> -->
-                            <img src="{{ asset('assets/img/seed-marketing.png') }}" class="img-responsive" style="width:80px;">
+                            <img src="{{ asset('assets/img/seed-marketing.png') }}" class="img-responsive"
+                                style="width:80px;">
                         </div>
                         <div class="service-item-content">
                             <h3 class="service-heading">Seed Marketing</h3>
                             <p>
-                                {{ substr("Seed marketing to farmers involves promoting and selling seed products, encompassing
+                                Seed marketing to farmers involves promoting and selling seed products, encompassing
                                 activities like advertising, branding, pricing, distribution, and product development,
-                                all aiming to satisfy farmers' needs for reliable, high-quality seed varieties.", 0, 100) }}...
+                                all aiming to satisfy farmers' needs for reliable, high-quality seed varieties.
                             </p>
-                            <a href="{{ route('services') }}#seed-marketing">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -249,7 +180,6 @@
     </div>
 </section><!-- /Services Section -->
 
-
 @stop
 
 
@@ -257,9 +187,4 @@
 @endsection
 
 @section('additional_css')
-<style>
-.hero p {
-    font-size: larger;
-}
-</style>
 @endsection
