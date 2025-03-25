@@ -45,6 +45,16 @@ Route::get('/about-us', function(){
     return view('pages.about');
 })->name('about');
 
+Route::get('/test-mail-format', function(){
+    $data = [
+        'name' => 'Nodel Officer',
+        'email' => 'bhagirathram_icar@yahoo.com',
+        'subject' => 'My Subject',
+        'message' => 'Et id eius voluptates atque nihil voluptatem enim in tempore minima sit ad mollitia commodi minusc.',
+    ];
+    return view('emails.inquiry', compact('data'));
+});
+
 Route::get('/services', function(){
     return view('pages.services');
 })->name('services');

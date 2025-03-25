@@ -39,7 +39,7 @@ class HomeController extends Controller
         ]);
 
         // Send email
-        Mail::to('rajtomer2110@gmail.com')->send(new InquiryMail($data));
+        Mail::to('mustardseedhub1950@gmail.com')->send(new InquiryMail($data));
 
         return redirect('contact-us')->with('success','Inquiry email sent successfully!');
     }
